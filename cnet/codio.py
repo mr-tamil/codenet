@@ -40,6 +40,7 @@ def disablePrint():
 
 # enable print output
 def enablePrint():
+    sys._jupyter_stdout = sys.stdout
     sys.stdout = sys.__stdout__
 
 
