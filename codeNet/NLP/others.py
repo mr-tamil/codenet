@@ -62,7 +62,7 @@ def Spacy(model:SPACY_MODELS_NAME= "small"):
 
 #: 2. Gemsim Model
 
-def gensim(model= "word2vec-google-news-300"):
+def Gensim(model= "word2vec-google-news-300"):
     '''
     websitelink: https://github.com/RaRe-Technologies/gensim-data
     
@@ -78,7 +78,7 @@ def gensim(model= "word2vec-google-news-300"):
 
 #: 3. FastText Model
 
-def fastText(input: "dataset.txt"):
+def FastText(input: "dataset.txt"):
     '''
     Examples:
         nearest_neighbors = model.get_nearest_neighbors('word')
