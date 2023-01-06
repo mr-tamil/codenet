@@ -4,7 +4,7 @@
 import os, sys, subprocess, importlib
 
 def command_call(cmd: str):
-	subprocess.check_call(cmd)
+	subprocess.check_call(cmd.split())
 
 
 # Install Packag
