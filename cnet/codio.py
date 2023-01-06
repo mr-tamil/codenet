@@ -34,15 +34,13 @@ def install_packages(names:['packages'])->None:
 	
 
 # disable print output
-__stdout__ = sys.stdout
 def disablePrint():
     sys.stdout = open(os.devnull, 'w')
 
 
 # enable print output
 def enablePrint():
-    sys.stdout.close()
-    sys.stdout = __stdout__
+    sys.stdout = sys.__stdout__
 
 
 # eable or disable print output on with statement
@@ -58,7 +56,6 @@ class PrintStatements:
     def __init__(self, state= True):
         # :param: state: True or False
         self.state = state
-        self.__stdout__ = sys.stdout
     	
     def __enter__(self):
         if not self.state:
@@ -66,5 +63,5 @@ class PrintStatements:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.state:
-            sys.stdout.close()
-            sys.stdout = self.__stdout__
+            # sys.stdout.close()
+            sys.stdout = sys.__stdout__
