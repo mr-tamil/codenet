@@ -1,10 +1,8 @@
-import importlib
-
 
 def Process():
-    process = importlib.import_module('process')
+    from . import process
     return process
 
 def Others():
-    others = importlib.import_moduls('others')
+    from . import others
     return others
