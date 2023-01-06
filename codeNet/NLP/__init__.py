@@ -1,7 +1,10 @@
+import importlib
+
+
 def Process():
-    from . import process as p
-    return p
+    process = importlib.import_module('process')
+    return process
 
 def Others():
-    from . import others as o
-    return o
+    others = importlib.import_moduls('others')
+    return others
