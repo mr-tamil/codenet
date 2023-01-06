@@ -1,3 +1,5 @@
+import importlib
 from . import codio
 
-NLP = lambda: __import__('.NLP')
+
+NLP = lambda: importlib.import_module('NLP')
