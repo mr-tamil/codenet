@@ -1,6 +1,7 @@
 def Process():
     from . import Process as process
-    print(dir(process))
+    print(type(process))
+    print(dir(process), 10)
     return process
 
 def Others():
