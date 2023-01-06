@@ -40,6 +40,7 @@ def disablePrint():
 
 # enable print output
 def enablePrint():
+    sys.stdout.close()
     sys.stdout = sys.__stdout__
 
 
