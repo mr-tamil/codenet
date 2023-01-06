@@ -1,4 +1,4 @@
-"""Others :: Others model in NLP"""
+print("""Others :: Others model in NLP""")
 
 
 # import modules
