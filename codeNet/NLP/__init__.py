@@ -1,2 +1,4 @@
 # from . import process
-from . import others
+def Others():
+  from . import others
+  return others
