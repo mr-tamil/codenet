@@ -1,7 +1,7 @@
 """Prcess :: Some techniques and tools for processing the NLP"""
 
 # import modules
-from codeNet.codio import install_packages, install_package
+from codenet.codio import install_packages, install_package
 
 
 # install packages
