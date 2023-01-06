@@ -2,4 +2,6 @@ import importlib
 from . import codio
 
 
-NLP = lambda: importlib.import_module('NLP')
+def NLP():
+  from . import NLP
+  return NLP
