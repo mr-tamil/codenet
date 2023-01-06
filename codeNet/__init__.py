@@ -1,3 +1,3 @@
 from . import codio
 
-NLP = lambda nlp: __import__('NLP')
+NLP = lambda: __import__('NLP')
