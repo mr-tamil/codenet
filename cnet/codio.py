@@ -59,9 +59,10 @@ class PrintStatements:
     	
     def __enter__(self):
         if not self.state:
+            self.__stdout__ = sys.stdout
             sys.stdout = open(os.devnull, 'w')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.state:
             # sys.stdout.close()
-            sys.stdout = sys.__stdout__
+            sys.stdout = self.__stdout__
