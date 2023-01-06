@@ -40,7 +40,6 @@ def disablePrint():
 
 # enable print output
 def enablePrint():
-    sys._jupyter_stdout = sys.stdout
     sys.stdout = sys.__stdout__
 
 
@@ -65,5 +64,5 @@ class PrintStatements:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.state:
-            # sys.stdout.close()
+            sys.stdout.close()
             sys.stdout = self.__stdout__
