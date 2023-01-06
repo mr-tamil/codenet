@@ -1,4 +1,4 @@
-print("""Others :: Others model in NLP""")
+"""Others :: Others model in NLP"""
 
 
 # import modules
