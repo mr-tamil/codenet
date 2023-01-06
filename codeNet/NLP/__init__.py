@@ -1,7 +1,7 @@
 def Process():
-    from . import process
-    return process
+    from . import process as p
+    return p
 
 def Others():
-    from . import others
-    return others
+    from . import others as o
+    return o
