@@ -1,7 +1,7 @@
 """Prcess :: Some techniques and tools for processing the NLP"""
 
 # import modules
-from ..codio import install_packages, install_package
+from .codio import install_packages, install_package
 
 
 # install packages
