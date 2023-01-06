@@ -2,5 +2,5 @@ from . import codio
 
 
 
-from .NLP import Process, Others
+from . import NLP.Process as NLP
 
