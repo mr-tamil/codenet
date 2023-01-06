@@ -2,7 +2,7 @@
 
 
 # import modules
-from .codio import install_packages, install_package, command_call
+from codeNet.codio import install_packages, install_package, command_call
 
 
 # install packages
