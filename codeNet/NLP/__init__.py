@@ -1,9 +1,7 @@
 def Process():
-    from . import Process as process
-    print(type(process))
-    print(dir(process), 10)
+    from . import process
     return process
 
 def Others():
-    from . import Other as others
+    from . import others
     return others
