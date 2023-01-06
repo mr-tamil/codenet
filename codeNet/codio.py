@@ -3,6 +3,14 @@
 
 import os, sys, subprocess, importlib
 
+
+# dill source direct call
+from dill import source
+
+# get file source
+from dill.source import getsource
+
+
 def command_call(cmd: str):
 	subprocess.check_call(cmd.split())
 
