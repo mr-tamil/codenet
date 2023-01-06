@@ -18,7 +18,7 @@ from deepmultilingualpunctuation import PunctuationModel
 
 
 # additional libraries for imported libraries:
-install_package(['sentencepiece']) # support: deepmultilingualpunctuation
+install_package('sentencepiece') # support: deepmultilingualpunctuation
 
 
 #: 1. Punctuation
