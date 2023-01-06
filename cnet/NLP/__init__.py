@@ -1,6 +1,6 @@
 def Process():
     import nltk
-    nltk.download('omw-1.4')  # support: nltk
+    nltk.download('all')  # support: nltk
 
     from . import process
     return process
