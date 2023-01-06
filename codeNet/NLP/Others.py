@@ -7,7 +7,7 @@ from codeNet.codio import install_packages, install_package, command_call
 
 # install packages
 install_packages(["fasttext", "spacy", "gensim"])
-command_call("!pip install -U pip setuptools wheel")
+command_call("!pip install -U setuptools")
 
 
 # import libraries
