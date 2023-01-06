@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 CREATED= "06.01.2023"
-NAME = "codeNet"
+NAME = "CodeNet"
 VERSION = "0.1.0"
 DESCRIPTION = "-"
 
