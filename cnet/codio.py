@@ -1,8 +1,24 @@
 """codio: Code Toolkit for I/O"""
 
 
-# import libraries
+# import libraries assist
 import os, sys, subprocess, importlib
+
+
+# install single package
+def install_package(name)->None:
+    if importlib.util.find_spec(name) is None:
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', name])
+
+
+# install list of packages
+def install_packages(names:['packages'])->None:
+    for name in names:
+        install_package(name)
+
+
+# install libraries
+install_packages(['dill'])
 
 
 # libraries easy access method:---
@@ -20,18 +36,6 @@ from dill.source import getsource
 def command_call(cmd: str):
 	subprocess.check_call(cmd.split())
 
-
-# install single package
-def install_package(name)->None:
-    if importlib.util.find_spec(name) is None:
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', name])
-
-
-# install list of packages
-def install_packages(names:['packages'])->None:
-    for name in names:
-        install_package(name)
-	
 
 # disable print output
 def disablePrint():
