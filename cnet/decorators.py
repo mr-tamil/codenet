@@ -3,7 +3,7 @@
 
 # import package modules
 from . import codio
-from filemanager import FileManager as fm
+from .filemanager import FileManager as fm
 
 # import libraries
 import time, datetime
