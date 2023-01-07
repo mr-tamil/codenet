@@ -32,6 +32,58 @@ from dill.source import getsource
 # --------------------------------
 
 
+def cfpname(func):
+    '''
+    cfpname = class function parent name
+    
+    Explanation:
+    	class Files:
+    		def delete(self):
+    			pass
+    	
+    	>> cfpname(Files.delete)
+    	<< Files.delete
+    	
+    	
+    '''
+    
+    str_list = str(func).split()
+    
+    if 'of' in str_list:
+        index= str_list.index('of')
+    elif 'at' in str_list:
+        index = str_list.index('at')
+    else:
+    	index = None
+    
+    if index is not None:
+    	return str_list[index-1]
+    else:
+    	get = str_list[1].split("'")[1]
+    	if get.startswith('__main__.'):
+    		get = get[9:]
+    	return get
+    	
+
+def typesof(obj):
+    '''type(obj) in all ways'''
+    
+    checker = {
+         "method": source.ismethod,
+         "def": source.isfunction,
+         "class": source.isclass,
+    }
+    
+    total_chances = []
+    for check in checker.items():
+        ans = check[1](obj)
+        if ans:
+            total_chances.append(check[0])
+	
+    return total_chances
+
+
+
 # terminal command call by subprocess
 def command_call(cmd: str):
 	subprocess.check_call(cmd.split())
