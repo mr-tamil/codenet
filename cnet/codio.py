@@ -5,8 +5,8 @@ __version__ = "0.1.1"
 import os, sys, subprocess, importlib, io, imp, types, time
 
 
-# create new moduleon running code
-def create_module(script:str, name:str=None, delete=True):
+# create new module on running code and access it
+def create_modula(script:str, name:str=None, delete=True):
     """
     Note: don't use variables: __start__, __end__
     """
