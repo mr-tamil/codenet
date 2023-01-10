@@ -2,7 +2,33 @@
 __version__ = "0.1.1"
 
 # import libraries assist
-import os, sys, subprocess, importlib
+import os, sys, subprocess, importlib, io, imp, types, time
+
+
+# create new moduleon running code
+def create_module(script:str, name:str=None, delete=True):
+    """
+    Note: don't use variables: __start__, __end__
+    """
+
+    script = f"""__start__ = 'Future use variable'\n{script}\n__end__ = globals()"""
+    
+    if name is None:
+        name = str(time.time())
+
+    module_path = name
+    with open(module_path, "w") as file:
+        file.write(script)
+
+    with io.open(module_path) as scriptfile:
+        code = compile(scriptfile.read(),module_path,'exec')
+        module = imp.new_module(name)
+        exec(code, module.__dict__)
+
+    if delete is True:
+        os.remove(module_path)
+
+    return module
 
 
 # install single package
