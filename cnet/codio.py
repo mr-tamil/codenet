@@ -1,5 +1,5 @@
 """codio: Code Toolkit for I/O"""
-
+__version__ = "0.1.1"
 
 # import libraries assist
 import os, sys, subprocess, importlib
