@@ -30,6 +30,10 @@ from dill import source
 # get file source code
 from dill.source import getsource
 
+# get members
+from inspect import getmembers
+
+
 # --------------------------------
 
 # create new module on running code and access it
