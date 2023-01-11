@@ -35,7 +35,7 @@ class Dencrypt():
 		status= True
 		
 		if not key and keyfilepath is None:
-			key = Fernet.generate_key().decode()
+			key = self.Fernet.generate_key().decode()
 		
 		if key is None:
 			with open(keyfilepath, 'r') as kf:
@@ -52,7 +52,7 @@ class Dencrypt():
 				source.write(key)
 		
 		try:
-			f = Fernet(key.encode())
+			f = self.Fernet(key.encode())
 			with open(self.filepath,'rb') as source:
 				file = source.read()
 			
@@ -92,7 +92,7 @@ class Dencrypt():
 					key = key.zfill(43) + '='
 				else:
 					raise Exception("Invalide key format")
-			f = Fernet(key)
+			f = self.Fernet(key)
 			with open(self.filepath, 'rb') as source:
 			    file = source.read()
 			
