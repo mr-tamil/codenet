@@ -37,6 +37,38 @@ from inspect import getmembers
 from warnings import filterwarnings
 # --------------------------------
 
+
+# Objectize the list, dict
+class Objectize:
+    '''
+    # Usage:
+
+    # object = Objectize.list(['name', 'age'], ["name", 0])
+    object = Objectize.dict({'name': 'age', "name": 0})
+
+    # Access using index
+    print(object[0])
+
+    # Access using name
+    print(object.name)
+
+    # Access using getattr()
+    print(getattr(object, 'name'))
+    '''
+
+
+    def list(keys, values, identifier="id"):
+        nt = namedtuple(identifier, keys)
+        n = nt(*values)
+        return n
+
+    def dict(dict_, identifier="id"):
+        keys, values = dict_.items()
+        nt = namedtuple(identifier, keys)
+        n = nt(*values)
+        return n
+
+
 # create new module on running code and access it
 def create_modula(script:str, name:str=None, delete=True):
     """
