@@ -3,7 +3,7 @@ __version__ = "0.1.1"
 
 # import libraries assist
 import os, sys, subprocess, importlib, io, imp, types, time
-
+from collections import namedtuple
 
 
 # install single package
