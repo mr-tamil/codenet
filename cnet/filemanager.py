@@ -5,10 +5,6 @@ from . import codio
 
 # import libraries
 import os, shutil
-from cryptography.fernet import Fernet
-
-
-
 
 class Dencrypt():
 	"""
@@ -21,6 +17,15 @@ class Dencrypt():
 		assert isinstance(filepath, str), f"file path '{filepath}' must be str."
 		self.filepath= filepath
 		self.__key= None
+		
+		# install required library
+		try:
+			codio.install_package('cryptography')
+		except:
+			raise Exception("install cryptography using pip")
+		from cryptography.fernet import Fernet
+		self.Fernet = Fernet
+
 
 	def encrypt(self, key: str= None, keyfilepath: str= None, savekeyfile:str= None):
 		assert key== None or isinstance(key, str), f"key '{key}' must be NoneType of str."
