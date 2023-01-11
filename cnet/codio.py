@@ -33,7 +33,8 @@ from dill.source import getsource
 # get members
 from inspect import getmembers
 
-
+# filter warnings
+from warnings import filterwarnings
 # --------------------------------
 
 # create new module on running code and access it
