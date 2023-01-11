@@ -1,6 +1,7 @@
 import numpy as np
-from . import codio
+from cnet import codio
 import inspect
+
 
 class Flow():
     def __init__(self, neuron):        
