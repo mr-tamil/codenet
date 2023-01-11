@@ -11,7 +11,7 @@ setup(name=NAME,
       author_email="mr.tamil003@gmail.com",
       description=DESCRIPTION,
       packages=find_packages(),
-      install_requires=['numpy', 'pandas', 'cryptography'],
+      install_requires=['numpy', 'pandas'],
       keywords=[],
       classifiers=[
                    "Development Status :: 1 - Testing",
