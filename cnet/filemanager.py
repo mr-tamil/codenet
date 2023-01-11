@@ -234,7 +234,7 @@ class Fmf:
     def decrypt(self, key:str= None, keyfilepath:str= None):
         '''decrypt the file'''
         file = Dencrypt(self.filepath)
-        response = file.decrypt(key=key, key_file=keyfilepath)
+        response = file.decrypt(key=key, keyfilepath=keyfilepath)
         return response
         
         
