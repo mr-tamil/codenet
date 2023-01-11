@@ -185,3 +185,10 @@ class PrintStatements:
         if not self.state:
             sys.stdout.close()
             sys.stdout = self.__stdout__
+
+def mkdirz(directory, lis):
+	for f in lis:
+		path = directory
+		for d in f[:-1]:
+			path = os.path.join(path, d)
+			os.mkdir(path)
