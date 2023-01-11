@@ -1,10 +1,13 @@
 '''filemanager :: File Manager : as fm'''
 
-# import libraries
-import os, shutil
-
 # import package modules
 from . import codio
+
+# import libraries
+import os, shutil
+from cryptography.fernet import Fernet
+
+
 
 
 class Dencrypt():
@@ -19,11 +22,6 @@ class Dencrypt():
 		self.filepath= filepath
 		self.__key= None
 
-        # install and import required
-		codio.install_package('cryptography')
-		from cryptography.fernet import Fernet
-		self.Fernet = Fernet
-	
 	def encrypt(self, key: str= None, keyfilepath: str= None, savekeyfile:str= None):
 		assert key== None or isinstance(key, str), f"key '{key}' must be NoneType of str."
 		assert keyfilepath== None or isinstance(keyfilepath, str), f"key file '{keyfilepath}' must be NoneType of str."
@@ -32,7 +30,7 @@ class Dencrypt():
 		status= True
 		
 		if not key and keyfilepath is None:
-			key = self.Fernet.generate_key().decode()
+			key = Fernet.generate_key().decode()
 		
 		if key is None:
 			with open(keyfilepath, 'r') as kf:
@@ -49,7 +47,7 @@ class Dencrypt():
 				source.write(key)
 		
 		try:
-			f = self.Fernet(key.encode())
+			f = Fernet(key.encode())
 			with open(self.filepath,'rb') as source:
 				file = source.read()
 			
@@ -89,7 +87,7 @@ class Dencrypt():
 					key = key.zfill(43) + '='
 				else:
 					raise Exception("Invalide key format")
-			f = self.Fernet(key)
+			f = Fernet(key)
 			with open(self.filepath, 'rb') as source:
 			    file = source.read()
 			
