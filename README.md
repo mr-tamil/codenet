@@ -169,8 +169,5 @@ Flow.show_logs :: ColabNB
 ```
 
 # ------------------------------------------
-## Updates
-- v0.1.1 : Wolf.Neurons, Wolf.Flow classes are enhanced:
-   1. Wolf.Neurons: globalize() : running code class and functions are added by globalize() method
-   2. Wolf.Neurons: display() : view the neurons in beautiful manner using display() method
-   3. Wolf.Flow: __exec(): error skipping technique is removed for getting real result
+## Updated Version details
+- There is no details
