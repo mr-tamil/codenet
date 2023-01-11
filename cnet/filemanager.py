@@ -84,7 +84,11 @@ class Dencrypt():
 			if keyfilepath:
 				with open('key.txt', 'r') as file:
 					key= file.read()
-			
+			if len(key)<44:
+				if '=' not in key:
+					key = key.zfill(43) + '='
+				else:
+					raise Exception("Invalide key format")
 			f = self.Fernet(key)
 			with open(self.filepath, 'rb') as source:
 			    file = source.read()
