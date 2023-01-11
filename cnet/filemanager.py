@@ -9,9 +9,9 @@ from . import codio
 
 class Dencrypt():
 	"""
-		Encrypt and Decrypt the file with key,
-		key: 44 char and ends with =
-        key: not 44  char and not ends with =
+	Encrypt and Decrypt the file with key,
+	key: 44 char and ends with =
+    key: not 44  char and not ends with =
 	"""
 		
 	def __init__(self, filepath: str):
