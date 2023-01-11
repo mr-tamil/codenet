@@ -3,6 +3,122 @@
 # import libraries
 import os, shutil
 
+# import package modules
+from . import codio
+
+
+class Dencrypt():
+	"""
+		Encrypt and Decrypt the file with key,
+		key: 44 char and ends with =
+        key: not 44  char and not ends with =
+	"""
+		
+	def __init__(self, filepath: str):
+		assert isinstance(filepath, str), f"file path '{filepath}' must be str."
+		self.filepath= filepath
+		self.__key= None
+
+        # install and import required
+		codio.install_package('cryptography')
+		from cryptography.fernet import Fernet
+		self.Fernet = Fernet
+	
+	def encrypt(self, key: str= None, keyfilepath: str= None, savekeyfile:str= None):
+		assert key== None or isinstance(key, str), f"key '{key}' must be NoneType of str."
+		assert keyfilepath== None or isinstance(keyfilepath, str), f"key file '{keyfilepath}' must be NoneType of str."
+		
+		error= None
+		status= True
+		
+		if not key and keyfilepath is None:
+			key = self.Fernet.generate_key().decode()
+		
+		if key is None:
+			with open(keyfilepath, 'r') as kf:
+				key = kf.read()
+        
+		if len(key)<44:
+			if '=' not in key:
+				key = key.zfill(43) + '='
+			else:
+				raise Exception("Invalide key format")
+
+		if savekeyfile:
+			with open(savekeyfile, 'w') as source:
+				source.write(key)
+		
+		try:
+			f = self.Fernet(key.encode())
+			with open(self.filepath,'rb') as source:
+				file = source.read()
+			
+			encryption = f.encrypt(file)
+			with open(self.filepath,'wb') as source:
+				source.write(encryption)
+				
+		except Exception as e:
+			status= False
+			error= e
+			
+		self.__key= key
+		return {
+				'type': 'encrypt',
+				'status': status,
+				'key': key,
+				'filename': self.filepath,
+				'savekeyfile': savekeyfile,
+				'keyfilename': keyfilepath,
+				'error': error
+				}
+	
+	def decrypt(self, key:str= None, keyfilepath:str= None):
+		assert key== None or isinstance(key, str), f"key '{key}' must be NoneType of str."
+		assert keyfilepath== None or isinstance(keyfilepath, str), f"key file '{keyfilepath}' must be NoneType of str."
+		assert (key or keyfilepath) and not (key and keyfilepath), f"key or key_file any one must be given."
+		
+		error= None
+		status= True
+		
+		try:
+			if keyfilepath:
+				with open('key.txt', 'r') as file:
+					key= file.read()
+			
+			f = self.Fernet(key)
+			with open(self.filepath, 'rb') as source:
+			    file = source.read()
+			
+			Decryption = f.decrypt(file)
+			
+			with open(self.filepath, 'wb') as source:
+			    source.write(Decryption)
+		
+		except Exception as e:
+			error= e
+			status= False
+		
+		
+		return {
+				'type': 'decrypt',
+				'status': status,
+				'key': key,
+				'filename': self.filepath,
+				'keyfilename': keyfilepath,
+				'error': error
+				}
+	
+	@property
+	def key(self):
+		pass
+	
+	@key.getter
+	def key(self):
+		key= self.__key
+		self.__key= None
+		return key
+
+
 
 # File Manager Format
 class Fmf:
@@ -108,7 +224,18 @@ class Fmf:
     def delete(self):
         '''delete the file'''
         os.remove(self.filepath)
-        
+    
+    def encrypt(self, key: str= None, keyfilepath: str= None, savekeyfile:str= None):
+        '''encrypt the file'''
+        file = Dencrypt(self.filepath)
+        response = file.encrypt(key=key, keyfilepath=keyfilepath, savekeyfile=savekeyfile)
+        return response
+    
+    def decrypt(self, key:str= None, keyfilepath:str= None):
+        '''decrypt the file'''
+        file = Dencrypt(self.filepath)
+        response = file.decrypt(key=key, key_file=keyfilepath)
+        return response
         
         
     # ------------------------------------------
