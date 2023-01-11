@@ -217,7 +217,7 @@ class Fmf:
     def move(self, path:str):
         '''move file to destination path'''
         shutil.move(self.filepath, path)
-        self.path = path
+        self.filepath = path
     
     def copy(self, path:str):
         '''copy the file to destination path'''
