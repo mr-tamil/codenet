@@ -164,7 +164,3 @@ Neurons.saving :: POSIX
 ```
 Flow.show_logs :: ColabNB
 ```
-
-# ------------------------------------------
-## Updated Version details
-- There is no details
