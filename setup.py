@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
-CREATED= "06.01.2023"
+CREATED= "11.01.2023"
 NAME = "CodeNet"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 DESCRIPTION = "-"
 
 setup(name=NAME,
@@ -11,8 +11,8 @@ setup(name=NAME,
       author_email="mr.tamil003@gmail.com",
       description=DESCRIPTION,
       packages=find_packages(),
-      install_requires=['numpy', 'pandas'],
-      keywords=[],
+      install_requires=['dill', 'numpy', 'pandas', 'jinja2', 'IPython'],
+      keywords=['wolf', 'NLP', 'filemanager', 'codio', 'decorators'],
       classifiers=[
                    "Development Status :: 1 - Testing",
                    "Programming Language :: Python :: 3",
@@ -20,4 +20,3 @@ setup(name=NAME,
                    "Operating System :: Microsoft :: Windows"],
       zip_safe=False
 )
-
