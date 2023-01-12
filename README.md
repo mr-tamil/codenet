@@ -9,6 +9,7 @@ cnet:
           - Flow
           - Neuron
           - Work
+    - all
     - codio
     - decorators
 ```
