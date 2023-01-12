@@ -6,7 +6,7 @@ from cnet.decorators import *
 
 # wolf
 from cnet.wolf import *
-from cnet.wolf.Neuron import *
-from cnet.wolf.Flow import *
-from cnet.wolf.CodeFlow import *
-from cnet.wolf.Work import *
+from cnet.wolf.neurons import *
+from cnet.wolf.flow import *
+from cnet.wolf.codeflow import *
+from cnet.wolf.work import *
