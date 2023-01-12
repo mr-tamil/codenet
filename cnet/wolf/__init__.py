@@ -1,4 +1,4 @@
-from .Neuron import Neurons
-from .Work import Works
-from .Flow import Flow
-from .CodeFlow import CodeFlow, display
+from .neurons import Neurons
+from .work import Works
+from .flow import Flow
+from .codeflow import CodeFlow, display
