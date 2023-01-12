@@ -5,10 +5,10 @@ cnet:
           - process
           - others
     - wolf
-          - CodeFlow
-          - Flow
-          - Neuron
-          - Work
+          - codeflow
+          - flow
+          - neurons
+          - work
     - all
     - codio
     - decorators
