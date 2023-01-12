@@ -98,11 +98,11 @@ class WorkModule():
 		globals_['__file__'] = module_path
 		neu = self.read['works'][work]['neurons']
 		
-		neurons = neurons(globals_)
+		neurons_ = neurons(globals_)
 		for n in neu:
-			neurons.add(globals_[n[1]], n[0])
+			neurons_.add(globals_[n[1]], n[0])
 		
-		self.Neuron = neurons
+		self.Neuron = neurons_
 		self.works.append(self)
 		
 		
