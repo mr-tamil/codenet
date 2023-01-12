@@ -1,10 +1,10 @@
 # CodeNet
 ```r
 cnet:
-    - NLP
+    - NLP:
           - process
           - others
-    - wolf
+    - wolf:
           - codeflow
           - flow
           - neurons
