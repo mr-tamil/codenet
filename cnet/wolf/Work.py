@@ -4,7 +4,7 @@ import importlib as implib
 import json
 import sys,io,imp,types
 import shutil
-from . import Neurons
+from . import neurons
 
 class Objects(): pass
 
@@ -98,7 +98,7 @@ class WorkModule():
 		globals_['__file__'] = module_path
 		neu = self.read['works'][work]['neurons']
 		
-		neurons = Neurons(globals_)
+		neurons = neurons(globals_)
 		for n in neu:
 			neurons.add(globals_[n[1]], n[0])
 		
