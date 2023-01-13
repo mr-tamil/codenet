@@ -9,6 +9,10 @@ from .filemanager import FileManager as fm
 import time, datetime
 from functools import wraps
 
+# import decorators from other modules
+# setattr method to set attrs
+from cnet.codio import setattrs
+
 
 # runtime decorator
 def timed(function):
