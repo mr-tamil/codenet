@@ -63,7 +63,7 @@ class Objectize:
         return n
 
     def dict(dict_, identifier="id"):
-        keys, values = dict_.items()
+        keys, values = list(dict_.keys()), list(dict_.values())
         nt = namedtuple(identifier, keys)
         n = nt(*values)
         return n
