@@ -76,11 +76,11 @@ class Person:
             
     return obj.__dict__
 
-# Objectise: Objectise the list, dict
-class Objectise:
+# Objectize: Objectize the list, dict
+class Objectize:
     '''Usage:
-    l = Objectise.list(['name'], ['Tamil'])
-    d = Objectise.dict({'name':'Dinesh'})
+    l = Objectize.list(['name'], ['Tamil'])
+    d = Objectize.dict({'name':'Dinesh'})
     
     print(l.name)
     print(d.name)
@@ -89,7 +89,7 @@ class Objectise:
     def list(keys, values, name='id'):
         class objectise: pass
     
-        obj = objectise()
+        obj = objectize()
         obj.__class__.__name__ = name
         objdict = obj.__dict__
         for i, key in enumerate(keys):
@@ -99,7 +99,7 @@ class Objectise:
     def dict(dict_, name='id'):
         class objectise: pass
     
-        obj = objectise()
+        obj = objectize()
         obj.__class__.__name__ = name
         objdict = obj.__dict__
         for key, value in dict_.items():
