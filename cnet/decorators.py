@@ -102,7 +102,7 @@ def _selfit_adjust(self= True, default=_SELFIT_DEFAULT):
                                     default_value= default,
                                     self= self,
                                     adjust=True,
-                                    rgs=args,
+                                    args=args,
                                     kwargs=kwargs)
             return output
         return call
