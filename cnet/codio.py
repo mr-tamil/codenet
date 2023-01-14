@@ -87,7 +87,7 @@ class Objectize:
     '''
 
     def list(keys, values, name='id'):
-        class objectise: pass
+        class objectize: pass
     
         obj = objectize()
         obj.__class__.__name__ = name
@@ -97,7 +97,7 @@ class Objectize:
         return obj
 
     def dict(dict_, name='id'):
-        class objectise: pass
+        class objectize: pass
     
         obj = objectize()
         obj.__class__.__name__ = name
