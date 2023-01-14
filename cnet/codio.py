@@ -40,113 +40,41 @@ from warnings import filterwarnings
 
 
 # setattr method to set attrs
-class setattrs:
-	'''Usage:
-	setattrs(object, locals())
-	setattrs(object, name= name, age= age)
-		
-	# delete and unself the inserted variables
-	__dict__ = setattrs(object, locals())(remove=['age'])
-		
-------------------------------
-# Decorator:
- - testing version:
-Error:
- - unassigned parameters are just shows as name=None as a string
+def setattrs(obj, *args, **kwargs):
+    '''Usage:--
+obj_dict = setattrs(object, locals())
+obj_dict = setattrs(object, name= name, age= age)
 
-Example:---
 
-class Person:
-	@setattrs.selfit
-	def __init__(self, name=None):
-		paes
-p = Person("person")
+Example:--
+class Person: pass
+p = Person()
+d = {'name':'Dinesh', 'age':22}
+    
+
+get = setattrs(p, name='Dinesh',age=22)
+get = setattrs(p, d)
+
 print(p.name)
->>> person
-		'''
-		
-	def __init__(self, obj=None, *args, **kwargs):
-		self.do(obj, *args, **kwargs)
-	
-	def do(self, obj, *args, **kwargs):
-		if args:
-			assert len(args)==1, f"args must not more than one."
-			for k, v in args[0].items():
-				setattr(obj, k, v)
-				
-		elif kwargs:
-			for k, v in kwargs.items():
-				setattr(obj, k, v)
-				
-		self.obj = obj
-	
-	def __call__(self, remove:list=None):
-		if remove is not None:
-			for r in remove:
-				if r in self.obj.__dict__.keys():
-					self.obj.__dict__.pop(r)
-					
-		return self.obj.__dict__
-	
-
-	def selfit(func):
-		
-		@wraps(func)
-		def call(*args, **kwargs):
-			
-			if args:
-				get = inspect.signature(func)
-				ak = list(get.parameters.keys())
-				av = list(get.parameters.values())
-				s1, s2= str(get).find("*"), str(get).rfind("**")
-				one, two = False, False
-				
-				if s1 != -1 and s2 == -1:
-					'one'
-					one = True
-					
-				'''
-				if s1 == -1 and s2 == -1:
-					'no one, no two'
-				
-				if s1 == s2 and s1 != -1 and s2 != -1:
-					'two'
-					two = True
-				if s1 != s2 and s1 != -1 and s2 != -1:
-					'one and two'
-					one, two = True, True
-				'''
-				
-				obj = args[0]
-				
-				# kwargs empty
-				kk = kwargs.keys()
-				for i, a in enumerate(ak[1:]):
-					if a not in kk:
-						kwargs[a] = av[i+1]
-						
-							
-				if len(args)>1 and not one:
-					args = list(args)
-					for i, a in enumerate(args[1:]):
-						kwargs[ak[i+1]]= a
-						del args[1]
-						
-					args = tuple(args)
-				
-				if obj:
-					for k, v in kwargs.items():
-						setattr(obj, k, v)
-						
-			output = func(*args, **kwargs)
-			return output
-			
-		return call
-		
-
-
-
-
+print(p.age)
+    
+----or ----------------------------
+class Person:
+    def __init__(self, name, age):
+        get_dict = setattrs(self, name=name, age=age)
+	del get_dict['self']
+   '''
+    
+    if args:
+        assert len(args)==1, f"args must not more than one."
+        for k, v in args[0].items():
+            setattr(obj, k, v)
+            
+    elif kwargs:
+        for k, v in kwargs.items():
+            setattr(obj, k, v)
+            
+    return obj.__dict__
 
 
 # Objectize the list, dict
