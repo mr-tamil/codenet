@@ -47,7 +47,7 @@ def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, se
             if k not in kk:
                 if adjust is False:
                     kwargs[k] = av[i+1].default
-
+                    
                 elif self is True:
                     if k not in obj.__dict__.keys():
                         if default_value is not _SELFIT_DEFAULT:
@@ -76,9 +76,19 @@ def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, se
             args = tuple(args)
         
         if obj:
+            note_error = []
             for k, v in kwargs.items():
-                setattr(obj, k, v)
-                
+                if v == inspect._empty:
+                    note_error.append(k)
+
+            if note_error:
+                sent = ", ".join(note_error)
+                raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
+
+            for k, v in kwargs.items():
+                    setattr(obj, k, v)
+        
+
     output = func(*args, **kwargs)
     return output
 
@@ -89,11 +99,11 @@ def _selfit_adjust(self= True, default=_SELFIT_DEFAULT):
         @wraps(func)
         def call(*args, **kwargs):
             output = _selfit_helper(func=func,
-                                      default_value= default,
-                                      self= self,
-                                      adjust=True,
-                                      args=args,
-                                      kwargs=kwargs)
+                                    default_value= default,
+                                    self= self,
+                                    adjust=True,
+                                    rgs=args,
+                                    kwargs=kwargs)
             return output
         return call
     return function
@@ -104,7 +114,6 @@ def selfit(func):
     '''Usage:
 # Sample Code:--
 from cnet.decorators import selfit
-
 class Person:
     @selfit
     def __init__(self, name, age=21, profession= None):
@@ -113,12 +122,10 @@ class Person:
     @selfit.adjust(self=True, default=None)
     def display(self, name, age, profession):
         print(self.name, self.age, self.profession)
-
 # Test Run:--
 p = Person("Dinesh", 21, "Mechanic")
 p.display(age= 22)
 print(p.__dict__)
-
 # output:--
 >>>  Dinesh 21 Mechanic
 >>>  Dinesh 22 Mechanic
@@ -127,9 +134,9 @@ print(p.__dict__)
     @wraps(func)
     def call(*args, **kwargs):
         output = _selfit_helper(func=func,
-                                  adjust=False,
-                                  args=args,
-                                  kwargs=kwargs)
+                                adjust=False,
+                                args=args,
+                                kwargs=kwargs)
         return output
 
     return call
