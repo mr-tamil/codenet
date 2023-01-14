@@ -86,21 +86,19 @@ class Objectize:
     print(d.name)
     '''
 
-    def list(keys, values, name='id'):
+    def list(keys, values):
         class objectize: pass
     
         obj = objectize()
-        obj.__class__.__name__ = name
         objdict = obj.__dict__
         for i, key in enumerate(keys):
             objdict[key] = values[i]
         return obj
 
-    def dict(dict_, name='id'):
+    def dict(dict_):
         class objectize: pass
     
         obj = objectize()
-        obj.__class__.__name__ = name
         objdict = obj.__dict__
         for key, value in dict_.items():
             objdict[key] = value
