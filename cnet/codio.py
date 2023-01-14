@@ -76,23 +76,54 @@ class Person:
             
     return obj.__dict__
 
+# Objectise: Objectise the list, dict
+class Objectise:
+    '''Usage:
+    l = Objectise.list(['name'], ['Tamil'])
+    d = Objectise.dict({'name':'Dinesh'})
+    
+    print(l.name)
+    print(d.name)
+    '''
 
-# Objectize the list, dict
-class Objectize:
+    def list(keys, values, name='id'):
+        class objectise: pass
+    
+        obj = objectise()
+        obj.__class__.__name__ = name
+        objdict = obj.__dict__
+        for i, key in enumerate(keys):
+            objdict[key] = values[i]
+        return obj
+
+    def dict(dict_, name='id'):
+        class objectise: pass
+    
+        obj = objectise()
+        obj.__class__.__name__ = name
+        objdict = obj.__dict__
+        for key, value in dict_.items():
+            objdict[key] = value
+        return obj
+
+
+
+# TupleInstantiate: Instantiate the list, dict
+class TupleInstantiate:
     '''
     # Usage:
 
-    # object = Objectize.list(['name', 'age'], ["name", 0])
-    object = Objectize.dict({'name': 'age', "name": 0})
+    # instance = TupleInstantiate.list(['name', 'age'], ["name", 0])
+    instance = TupleInstantiate.dict({'name': 'age', "name": 0})
 
     # Access using index
-    print(object[0])
+    print(instance[0])
 
     # Access using name
-    print(object.name)
+    print(instance.name)
 
     # Access using getattr()
-    print(getattr(object, 'name'))
+    print(getattr(instance, 'name'))
     '''
 
 
