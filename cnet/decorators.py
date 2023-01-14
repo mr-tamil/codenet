@@ -10,21 +10,15 @@ import time, datetime
 from functools import wraps
 import inspect
 
-# import decorators from other modules
-# setattr method to set attrs
-from cnet.codio import setattrs
-
-
-
 
 # ---------------------------------------
 
 # selfit: function helper class
-class _SETATTRS_DEFAULT:
+class _SELFIT_DEFAULT:
     '''set default for selfit decorator function'''
 
 # selfit: function helper function
-def _setattrs_helper(func, adjust, args, kwargs, default_value=_SETATTRS_DEFAULT, self=True):
+def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, self=True):
 
     if args:
         get = inspect.signature(func)
@@ -56,7 +50,7 @@ def _setattrs_helper(func, adjust, args, kwargs, default_value=_SETATTRS_DEFAULT
 
                 elif self is True:
                     if k not in obj.__dict__.keys():
-                        if default_value is not _SETATTRS_DEFAULT:
+                        if default_value is not _SELFIT_DEFAULT:
                             kwargs[k] = default_value
                         else:
                             note_error.append(k)
@@ -64,7 +58,7 @@ def _setattrs_helper(func, adjust, args, kwargs, default_value=_SETATTRS_DEFAULT
                         kwargs[k] = obj.__dict__[k]
 
                 elif self is False:
-                    if default_value is not _SETATTRS_DEFAULT:
+                    if default_value is not _SELFIT_DEFAULT:
                         kwargs[k] = default_value
                     else:
                         note_error.append(k)
@@ -90,11 +84,11 @@ def _setattrs_helper(func, adjust, args, kwargs, default_value=_SETATTRS_DEFAULT
 
 
 # selfit: function helper function
-def _selfit_adjust(self= True, default=_SETATTRS_DEFAULT):
+def _selfit_adjust(self= True, default=_SELFIT_DEFAULT):
     def function(func):
         @wraps(func)
         def call(*args, **kwargs):
-            output = _setattrs_helper(func=func,
+            output = _selfit_helper(func=func,
                                       default_value= default,
                                       self= self,
                                       adjust=True,
@@ -109,7 +103,7 @@ def _selfit_adjust(self= True, default=_SETATTRS_DEFAULT):
 def selfit(func):
     @wraps(func)
     def call(*args, **kwargs):
-        output = _setattrs_helper(func=func,
+        output = _selfit_helper(func=func,
                                   adjust=False,
                                   args=args,
                                   kwargs=kwargs)
