@@ -101,6 +101,29 @@ def _selfit_adjust(self= True, default=_SELFIT_DEFAULT):
 
 # selfit for instantiate self in class methods
 def selfit(func):
+    '''Usage:
+# Sample Code:--
+from cnet.decorators import selfit
+
+class Person:
+    @selfit
+    def __init__(self, name, age=21, profession= None):
+        print(self.name, self.age, self.profession)
+    
+    @selfit.adjust(self=True, default=None)
+    def display(self, name, age, profession):
+        print(self.name, self.age, self.profession)
+
+# Test Run:--
+p = Person("Dinesh", 21, "Mechanic")
+p.display(age= 22)
+print(p.__dict__)
+
+# output:--
+>>>  Dinesh 21 Mechanic
+>>>  Dinesh 22 Mechanic
+>>>  {'name': 'Dinesh', 'age': 22, 'profession': 'Mechanic'}
+    '''
     @wraps(func)
     def call(*args, **kwargs):
         output = _selfit_helper(func=func,
