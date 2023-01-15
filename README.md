@@ -15,7 +15,22 @@ cnet:
 ```
 
 Install Package:
-
-```
+```cmd
 pip install https://github.com/mr-tamil/codenet/archive/refs/heads/main.zip
+```
+
+Uninstall package:
+```cmd
+pip uninstall codenet
+```
+
+
+Import Package:
+
+```python
+# import codenet
+import cnet
+
+# to import all modules and its stuff
+from cnet.all import *
 ```
