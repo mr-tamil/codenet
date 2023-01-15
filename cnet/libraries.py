@@ -26,7 +26,7 @@ from inspect import getsource, signature
 # import not installabled libraries
 # install packages
 packages = ['numpy', 'pandas', 'dill', 'IPython']
-codio.install_packages(packkages)
+codio.install_packages(packages)
 
 
 # import ---
