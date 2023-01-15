@@ -96,7 +96,7 @@ import_modules(gloabsl(),
     '''
 
     for module in modules:
-        import_module(module, install)
+        import_module(globals_, module, install)
 
 
 # import libraries from file
@@ -130,7 +130,7 @@ pandas, pd
             if get:
                 modules.append(get)
 
-    import_modules(modules)
+    import_modules(globals_, modules)
 
 
 def onelib(gloabsl_, project='default'):
@@ -144,9 +144,9 @@ add project in project json variable, libraries: developer mode only now:: coden
 	'''
 
     from cnet._project_libraries import project as P
-    print(P[project])
+
     if project in P.keys():
-        import_modules(P[project])
+        import_modules(globals_, P[project])
     else:
         raise Exception(f"project must be in {', '.join(P.keys())}")
 
