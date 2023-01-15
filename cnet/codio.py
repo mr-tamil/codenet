@@ -99,24 +99,23 @@ import_modules(
         import_module(module, install)
 
 
-# import project required libraries
-def libraries(project='default'):
+# import libraries from file
+def impfilelib(filepath):
     '''Usage:
-from  cnet.codio import libraries
+from  cnet.codio import impfilelib
 
-libraries('default')
 # use modules that have been import
+impfilelib('file.tx')
 
-# to add into project db:
-
-getlink = libraries.projectmodulesdblink
-
-----------------------------------------------
-add project libraries: developer mode only now::
-    - link: https://github.com/mr-tamil/codenet/tree/main/cnet/project-modules
-    - add .txt file to cnet/libraries/*
-	'''
-    lines = open(project+".txt").readlines()
+Note: format
+'------
+os
+sys
+numpy, np
+pandas, pd
+'------
+    '''
+    lines = open(filepath).readlines()
     modules = []
     for line in lines:
         if line.count(',') == 1:
@@ -133,7 +132,22 @@ add project libraries: developer mode only now::
 
     import_modules(modules)
 
-libraries.projectmodulesdblink = "https://github.com/mr-tamil/codenet/tree/main/cnet/project-modules"
+
+def onelib(project='default'):
+    '''Usage:
+from  cnet.codio import onelib
+
+# use modules that have been import
+onelib('default')
+    -----------
+add project in project json variable, libraries: developer mode only now:: codenet/cnet/libraries.py
+	'''
+
+    from cnet.libraries import project as P
+    if project in P.keys():
+        impfilelib(P[project])
+    else:
+        raise Exception(f"project must be in {', '.join(P.keys())}")
 
 # -----------------------------------------------------
 
