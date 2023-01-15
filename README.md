@@ -13,3 +13,9 @@ cnet:
     - codio
     - decorators
 ```
+
+Install Package:
+
+```
+pip install https://github.com/mr-tamil/codenet/archive/refs/heads/main.zip
+```
