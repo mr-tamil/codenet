@@ -37,17 +37,17 @@ from inspect import getmembers
 from warnings import filterwarnings
 # --------------------------------
 
-def import_module(gloabsl_, module, install=True):
+def import_module(globals_, module, install=True):
     '''Usage:
 from cnet.codio import import_module
 
 
 # :param : install: default; True  # if module not exists, install it
 
-import_module(gloabsl(), 'inspect.signature')
-import_module(gloabsl(), ('pandas', 'pd'))
-import_module(gloabsl(), ['numpy', 'np'])
-import_module(gloabsl(), 'dill')
+import_module(globals(), 'inspect.signature')
+import_module(globals(), ('pandas', 'pd'))
+import_module(globals(), ['numpy', 'np'])
+import_module(globals(), 'dill')
 
     '''
 
@@ -61,7 +61,7 @@ import_module(gloabsl(), 'dill')
             globals()[module.split('.')[-1]] = importlib.import_module(module)
         except ModuleNotFoundError:
             get, getcf = module.rsplit('.', 1)
-            gloabsl_[module.split('.')[-1]] = getattr(importlib.import_module(get), getcf)
+            globals_[module.split('.')[-1]] = getattr(importlib.import_module(get), getcf)
 
     else:
         if isinstance(module, tuple) or isinstance(module, set):
@@ -76,16 +76,16 @@ import_module(gloabsl(), 'dill')
             globals()[module[1]] = importlib.import_module(module[0])
         except ModuleNotFoundError:
             get, getcf = module[0].rsplit('.', 1)
-            gloabsl_[module[1]] = getattr(importlib.import_module(get), getcf)
+            globals_[module[1]] = getattr(importlib.import_module(get), getcf)
 
 
 
 
-def import_modules(gloabsl_, modules:list, install=True):
+def import_modules(globals_, modules:list, install=True):
     '''Usage:
 from cnet.codio import import_modules
 
-import_modules(gloabsl(), 
+import_modules(globals(), 
          [
 	 'inspect.signature',
          ('pandas', 'pd'),
@@ -100,12 +100,12 @@ import_modules(gloabsl(),
 
 
 # import libraries from file
-def impfilelib(gloabsl_, filepath):
+def impfilelib(globals_, filepath):
     '''Usage:
 from  cnet.codio import impfilelib
 
 # use modules that have been import
-impfilelib(gloabsl(), 'file.tx')
+impfilelib(globals(), 'file.tx')
 
 Note: format
 '------
@@ -133,12 +133,12 @@ pandas, pd
     import_modules(globals_, modules)
 
 
-def onelib(gloabsl_, project='default'):
+def onelib(globals_, project='default'):
     '''Usage:
 from  cnet.codio import onelib
 
 # use modules that have been import
-onelib(gloabsl(), 'default')
+onelib(globals(), 'default')
     -----------
 add project in project json variable, libraries: developer mode only now:: codenet/cnet/libraries.py
 	'''
