@@ -101,7 +101,7 @@ import_modules(
 
 # import project required libraries
 def libraries(project='default'):
-	'''Usage:
+    '''Usage:
 from  cnet.codio import libraries
 
 libraries('default')
@@ -115,9 +115,7 @@ getlink = libraries.projectmodulesdblink
 add project libraries: developer mode only now::
     - link: https://github.com/mr-tamil/codenet/tree/main/cnet/project-modules
     - add .txt file to cnet/libraries/*
-	
 	'''
-	
     lines = open(project+".txt").readlines()
     modules = []
     for line in lines:
