@@ -73,7 +73,7 @@ import_module(globals(), 'dill')
         if install is True:
             install_package(module[0].split('.')[0])
         try:
-            globals()[module[1]] = importlib.import_module(module[0])
+            globals_[module[1]] = importlib.import_module(module[0])
         except ModuleNotFoundError:
             get, getcf = module[0].rsplit('.', 1)
             globals_[module[1]] = getattr(importlib.import_module(get), getcf)
