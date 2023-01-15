@@ -4,7 +4,7 @@ from cnet import *
 from cnet.filemanager import *
 from cnet.codio import *
 from cnet.decorators import *
-from . import _project_libraries
+from . import _project_libraries as ppp
 
 # wolf
 from cnet.wolf import *
