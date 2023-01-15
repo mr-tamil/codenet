@@ -9,10 +9,11 @@ cnet:
           - flow
           - neurons
           - work
+    - project-modules: ...
     - all
     - codio
     - decorators
-    - project-modules: ...
+    - filemanager
 ```
 
 Install Package:
