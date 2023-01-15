@@ -1,4 +1,5 @@
 # main
+import cnet
 from cnet import *
 from cnet.filemanager import *
 from cnet.codio import *
