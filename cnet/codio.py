@@ -75,7 +75,7 @@ import_module('dill')
         try:
             globals()[module[1]] = importlib.import_module(module[0])
         except ModuleNotFoundError:
-            get, getcf = module[1].rsplit('.', 1)
+            get, getcf = module[0].rsplit('.', 1)
             globals()[module[1]] = getattr(importlib.import_module(get), getcf)
 
 
