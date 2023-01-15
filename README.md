@@ -12,6 +12,7 @@ cnet:
     - all
     - codio
     - decorators
+    - project-modules: ...
 ```
 
 Install Package:
