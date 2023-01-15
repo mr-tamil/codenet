@@ -56,6 +56,7 @@ def _jprint(func):
             result = func(*args, **kwargs)
             print(result)
         except:
+            del kwargs['indent']
             print(*args, **kwargs)
         
     
