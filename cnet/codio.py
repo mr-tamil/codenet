@@ -37,8 +37,54 @@ from inspect import getmembers
 from warnings import filterwarnings
 # --------------------------------
 
+def import_module(module, install=True):
+    '''Usage:
+from cnet.codio import import_module
+
+
+# :param : install: default; True  # if module not exists, install it
+
+import_module('inspect.signature')
+import_module(('pandas', 'pd'))
+import_module(['numpy', 'np'])
+import_module('dill')
+
+    '''
+
+    assert isinstance(module, list) or isinstance(module, tuple) or isinstance(module, set) or isinstance(module, str), f"only str, tuple, list, set of module list is allowed"
+    if isinstance(module, str):
+        module = module.strip()
+        if install is True:
+            install_package(module.split('.')[0])
+
+        try:
+            globals()[module.split('.')[-1]] = importlib.import_module(module)
+        except ModuleNotFoundError:
+            get, getcf = module.rsplit('.', 1)
+            globals()[module.split('.')[-1]] = getattr(importlib.import_module(get), getcf)
+
+    else:
+        if isinstance(module, tuple) or isinstance(module, set):
+            module = list(module)
+
+        module[0] = module[0].strip()
+        module[1] = module[1].strip()
+
+        if install is True:
+            install_package(module[0].split('.')[0])
+        try:
+            globals()[module[1]] = importlib.import_module(module[0])
+        except ModuleNotFoundError:
+            get, getcf = module[1].rsplit('.', 1)
+            globals()[module[1]] = getattr(importlib.import_module(get), getcf)
+
+
+
+
 def import_modules(modules:list, install=True):
     '''Usage:
+from cnet.codio import import_modules
+
 import_modules(
          [
 	 'inspect.signature',
@@ -50,35 +96,9 @@ import_modules(
     '''
 
     for module in modules:
-        assert isinstance(module, list) or isinstance(module, tuple) or isinstance(module, set) or isinstance(module, str), f"only str, tuple, list, set of module list is allowed"
-        if isinstance(module, str):
-            module = module.strip()
-            if install is True:
-                install_package(module.split('.')[0])
+        import_module(module, install)
 
-            try:
-                globals()[module.split('.')[-1]] = importlib.import_module(module)
-            except ModuleNotFoundError:
-                get, getcf = module.rsplit('.', 1)
-                globals()[module.split('.')[-1]] = getattr(importlib.import_module(get), getcf)
-
-        else:
-            if isinstance(module, tuple) or isinstance(module, set):
-                module = list(module)
-
-            module[0] = module[0].strip()
-            module[1] = module[1].strip()
-
-            if install is True:
-                install_package(module[0].split('.')[0])
-            try:
-                globals()[module[1]] = importlib.import_module(module[0])
-            except ModuleNotFoundError:
-                get, getcf = module[1].rsplit('.', 1)
-                globals()[module[1]] = getattr(importlib.import_module(get), getcf)
-
-
-
+# -----------------------------------------------------
 
 # setattr method to set attrs
 def setattrs(obj, *args, **kwargs):
