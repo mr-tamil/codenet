@@ -1,7 +1,7 @@
 """codio: Code Toolkit for I/O"""
 
 # import libraries assist
-import os, sys, subprocess, importlib, io, imp, types, time, inspect
+import os, sys, subprocess, importlib, io, imp, types, time, inspect, json
 from collections import namedtuple
 from functools import wraps
 
@@ -23,7 +23,10 @@ install_packages(['dill'])
 
 
 # libraries easy access method:---
-	
+
+# pprint: preaty print
+from pprint import pprint
+
 # dill source direct call
 from dill import source
 
@@ -36,6 +39,31 @@ from inspect import getmembers
 # filter warnings
 from warnings import filterwarnings
 # --------------------------------
+
+# jprint: json print
+def _jprint(func):
+    '''
+    from cnet.codio import jprint
+
+    # json print
+    jprint({'name': 'Thamizh'})
+    '''
+    @wraps(func)
+    def call(*args, **kwargs):
+        if 'indent' not in kwargs.keys():
+            kwargs['indent'] = 4
+        result = func(*args, **kwargs)
+        print(result)
+        return result
+    
+    return call
+
+jprint = _jprint(json.dumps)
+
+
+
+
+
 
 def import_module(globals_, module, install=True):
     '''Usage:
