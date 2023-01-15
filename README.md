@@ -9,7 +9,6 @@ cnet:
           - flow
           - neurons
           - work
-    - project-modules: ...
     - all
     - codio
     - decorators
