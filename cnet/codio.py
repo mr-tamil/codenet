@@ -144,7 +144,7 @@ add project in project json variable, libraries: developer mode only now:: coden
 	'''
 
     from cnet._project_libraries import project as P
-	
+    print(P[project])
     if project in P.keys():
         import_modules(P[project])
     else:
