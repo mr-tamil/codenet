@@ -69,11 +69,9 @@ def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, se
                     else:
                         note_error.append(k)
         
-        # for nak in noteak:
-        #     if nak in note_error:
-        #         note_error.remove(nak)
-
         if note_error:
+            g = len(args) - len(ak)
+            note_error = note_error[:]
             sent = ", ".join(note_error)
             raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
         
@@ -91,10 +89,6 @@ def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, se
                 if v == inspect._empty:
                     note_error.append(k)
             
-            # for nak in noteak:
-            #     if nak in note_error:
-            #         note_error.remove(nak)
-                    
             if note_error:
                 sent = ", ".join(note_error)
                 raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
@@ -110,6 +104,7 @@ def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, se
 # selfit: function helper function
 def _selfit_adjust(self= True, default=_SELFIT_DEFAULT):
     def function(func):
+
         @wraps(func)
         def call(*args, **kwargs):
             output = _selfit_helper(func=func,
@@ -120,7 +115,20 @@ def _selfit_adjust(self= True, default=_SELFIT_DEFAULT):
                                     kwargs=kwargs)
             return output
         return call
-    return function
+
+    def adjustit(*args, **kwargs):
+        output = _selfit_helper(func=self,
+                                default_value= None,
+                                self= True,
+                                adjust=True,
+                                args=args,
+                                kwargs=kwargs)
+        return output
+
+    if self not in [True, False]:
+        return adjustit
+    else:
+        return function
 
 
 # selfit for instantiate self in class methods
@@ -128,18 +136,24 @@ def selfit(func):
     '''Usage:
 # Sample Code:--
 from cnet.decorators import selfit
+
 class Person:
-    @selfit
+    @selfit  # just assign to self from given parameter
     def __init__(self, name, age=21, profession= None):
         print(self.name, self.age, self.profession)
-    
-    @selfit.adjust(self=True, default=None)
+
+    # @selfit.adjust  # :param :default :self=True, default=None
+    @selfit.adjust(self=True, default=None)  # :param :default :self=True, default=_SELFIT_DEFAULT
     def display(self, name, age, profession):
         print(self.name, self.age, self.profession)
+
+
 # Test Run:--
 p = Person("Dinesh", 21, "Mechanic")
 p.display(age= 22)
 print(p.__dict__)
+
+
 # output:--
 >>>  Dinesh 21 Mechanic
 >>>  Dinesh 22 Mechanic
@@ -157,6 +171,7 @@ print(p.__dict__)
 
 # instantiate adjust method
 selfit.adjust = _selfit_adjust
+
 
 # ---------------------------------------
 # runtime decorator
