@@ -40,26 +40,6 @@ from inspect import getmembers
 from warnings import filterwarnings
 # --------------------------------
 
-# jstring: json string
-def _jstring(func):
-    '''
-    from cnet.codio import jstring
-    # json string
-    print(jstring({'name': 'Thamizh'}))
-    '''
-    @wraps(func)
-    def call(*args, **kwargs):
-        if 'indent' not in kwargs.keys():
-            kwargs['indent'] = 4
-            
-        result = func(*args, **kwargs)
-        return result
-        
-    return call
-
-jstring = _jstring(json.dumps)
-
-
 
 # jprint: json print
 def _jprint(func):
