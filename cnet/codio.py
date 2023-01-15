@@ -98,6 +98,41 @@ import_modules(
     for module in modules:
         import_module(module, install)
 
+
+# import project required libraries
+def libraries(project='default'):
+	'''Usage:
+from  cnet.codio import libraries
+
+libraries('default')
+# use modules that have been import
+
+----------------------------------------------
+add project libraries: developer mode only now::
+    - link: 
+    - add .txt file to cnet/libraries/*
+	
+	'''
+	
+    lines = open(project+".txt").readlines()
+    modules = []
+    for line in lines:
+        if line.count(',') == 1:
+            get = line.split(',')
+            get[0], get[1] = get[0].strip(), get[1].strip()
+            if get[0] and get[1]:
+                modules.append((get[0], get[1]))
+            if get[0] and not get[1]:
+                modules.append(get[0])
+        else:
+            get = line.strip()
+            if get:
+                modules.append(get)
+
+    import_modules(modules)
+
+
+
 # -----------------------------------------------------
 
 # setattr method to set attrs
