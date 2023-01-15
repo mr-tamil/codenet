@@ -107,9 +107,13 @@ from  cnet.codio import libraries
 libraries('default')
 # use modules that have been import
 
+# to add into project db:
+
+getlink = libraries.projectmodulesdblink
+
 ----------------------------------------------
 add project libraries: developer mode only now::
-    - link: 
+    - link: https://github.com/mr-tamil/codenet/tree/main/cnet/project-modules
     - add .txt file to cnet/libraries/*
 	
 	'''
@@ -131,7 +135,7 @@ add project libraries: developer mode only now::
 
     import_modules(modules)
 
-
+libraries.projectmodulesdblink = "https://github.com/mr-tamil/codenet/tree/main/cnet/project-modules"
 
 # -----------------------------------------------------
 
