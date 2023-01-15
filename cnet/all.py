@@ -1,8 +1,5 @@
 # main
 from cnet import *
-
-del _project_libraries
-
 from cnet.filemanager import *
 from cnet.codio import *
 from cnet.decorators import *
