@@ -143,7 +143,7 @@ onelib('default')
 add project in project json variable, libraries: developer mode only now:: codenet/cnet/libraries.py
 	'''
 
-    from cnet.libraries import project as P
+    from cnet import _project_libraries as P
     if project in P.keys():
         impfilelib(P[project])
     else:
