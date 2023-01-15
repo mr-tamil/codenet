@@ -146,7 +146,7 @@ add project in project json variable, libraries: developer mode only now:: coden
     from cnet._project_libraries import project as P
 	
     if project in P.keys():
-        impfilelib(P[project])
+        import_modules(P[project])
     else:
         raise Exception(f"project must be in {', '.join(P.keys())}")
 
