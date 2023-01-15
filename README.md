@@ -13,6 +13,7 @@ cnet:
     - codio
     - decorators
     - filemanager
+    - _project_libraries
 ```
 
 Install Package:
