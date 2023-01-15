@@ -54,9 +54,10 @@ def _jprint(func):
             kwargs['indent'] = 4
         try:
             result = func(*args, **kwargs)
+            print(result)
         except:
-            pass
-        print(result)
+            print(*args, **kwargs)
+        
     
     return call
 
