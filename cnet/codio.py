@@ -140,7 +140,7 @@ from  cnet.codio import onelib
 # use modules that have been import
 onelib(globals(), 'default')
     -----------
-add project in project json variable, libraries: developer mode only now:: codenet/cnet/libraries.py
+add project in (:project:json) variable:: developer mode only now:: codenet/cnet/_project_libraries.py
 	'''
 
     from cnet._project_libraries import project as P
