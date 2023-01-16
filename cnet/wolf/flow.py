@@ -56,7 +56,7 @@ class Flow():
         return self.__exec
     
     def __exec(self, values):
-        with codio.PrintStatement(self.show_logs):
+        with codio.prints(self.show_logs):
             for i, name_neuron in enumerate(self.model):
                 try:
                     values = name_neuron[1](values)
