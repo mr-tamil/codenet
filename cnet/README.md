@@ -9,9 +9,6 @@ While Edit: Consider to Modify Repo
 
 ## Format
 ```python
-
-# !pip install https://github.com/mr-tamil/codenet/archive/refs/heads/main.zip
-
 from cnet.all import *
 
 
