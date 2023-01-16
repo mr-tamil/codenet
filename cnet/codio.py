@@ -380,27 +380,19 @@ def command_call(cmd: str):
 	subprocess.check_call(cmd.split())
 
 
-# disable print output
-def disablePrint():
-    sys.stdout = open(os.devnull, 'w')
-
-
-# enable print output
-def enablePrint():
-    sys.stdout = sys.__stdout__
-
-
-# eable or disable print output on with statement
-class PrintStatements:
-    '''
-    with PrintStatements(state=True):
-    	# will print
+# print, enable, disable
+class prints:
+    """
+    prints.enable  # will print
+    prints.disable  # won't print
+    with prints(state=True):
+    	'''will print'''
     	
-    with PrintStatements(state=True):
-    	# will not print
-    '''
-    
-    def __init__(self, state= True):
+    with prints(state=False):
+    	'''will not print'''
+    """
+    # eable or disable print output on with statement    
+    def __init__(self, state:bool= True):
         # :param: state: True or False
         self.state = state
     	
@@ -413,6 +405,14 @@ class PrintStatements:
         if not self.state:
             sys.stdout.close()
             sys.stdout = self.__stdout__
+    
+    # disable print output
+    def disable():
+        sys.stdout = open(os.devnull, 'w')
+
+    # enable print output
+    def enable():
+        sys.stdout = sys.__stdout__
 
 def mkdirz(directory, lis):
 	for f in lis:
