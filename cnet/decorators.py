@@ -21,7 +21,7 @@ class _SELFIT_DEFAULT:
 def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, self=True):
 
     @wraps(func)
-    def call():
+    def call(func, adjust, args, kwargs, default_value, self):
         if args:
             get = inspect.signature(func)
             ak = list(get.parameters.keys())
@@ -102,7 +102,7 @@ def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, se
         output = func(*args, **kwargs)
         return output
 
-    return call()
+    return call(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, self=True)
 
 
 # selfit: function helper function
