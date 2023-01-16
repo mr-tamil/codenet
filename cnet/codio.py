@@ -342,7 +342,6 @@ def cfpname(func):
         return v
 
     else:
-        print('2')
         get = str_list[1].split("'")[1]
         if get.startswith('__main__.'):
             get = get[9:]
