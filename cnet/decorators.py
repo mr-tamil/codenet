@@ -17,92 +17,90 @@ import inspect
 class _SELFIT_DEFAULT:
     '''set default for selfit decorator function'''
 
+
 # selfit: function helper function
 def _selfit_helper(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, self=True):
 
-    @wraps(func)
-    def call(func, adjust, args, kwargs, default_value, self):
-        if args:
-            get = inspect.signature(func)
-            ak = list(get.parameters.keys())
-            av = list(get.parameters.values())
-            s1, s2= str(get).find("*"), str(get).rfind("**")
-            one, two = False, False
-            
-            if s1 != -1 and s2 == -1:
-                'one'
-                one = True
-                
-            '''
-            if s1 == -1 and s2 == -1: 'no one, no two'
-            if s1 == s2 and s1 != -1 and s2 != -1: 'two'
-            if s1 != s2 and s1 != -1 and s2 != -1: 'one and two'
-            '''
+	if args:
+		get = inspect.signature(func)
+		ak = list(get.parameters.keys())
+		av = list(get.parameters.values())
+		s1, s2= str(get).find("*"), str(get).rfind("**")
+		one, two = False, False
 
-            noteak = []
-            for k, v in inspect.signature(func).parameters.items():
-                s = str(v)
-                if '*' == s[0]:
-                    noteak.append(k)
+		if s1 != -1 and s2 == -1:
+			'one'
+			one = True
 
-            obj = args[0]
+		'''
+		if s1 == -1 and s2 == -1: 'no one, no two'
+		if s1 == s2 and s1 != -1 and s2 != -1: 'two'
+		if s1 != s2 and s1 != -1 and s2 != -1: 'one and two'
+		'''
 
-            # kwargs empty
-            kk = kwargs.keys()
+		noteak = []
+		for k, v in inspect.signature(func).parameters.items():
+			s = str(v)
+			if '*' == s[0]:
+				noteak.append(k)
 
-            note_error = []
-            for i, k in enumerate(ak[1:]):
-                if k not in kk and k not in noteak:
-                    if adjust is False:
-                        kwargs[k] = av[i+1].default
-                        
-                    elif self is True:
-                        if k not in obj.__dict__.keys():
-                            if default_value is not _SELFIT_DEFAULT:
-                                kwargs[k] = default_value
-                            else:
-                                note_error.append(k)
-                        else:
-                            kwargs[k] = obj.__dict__[k]
+		obj = args[0]
 
-                    elif self is False:
-                        if default_value is not _SELFIT_DEFAULT:
-                            kwargs[k] = default_value
-                        else:
-                            note_error.append(k)
-            
-            if note_error:
-                g = len(args) - len(ak)
-                note_error = note_error[:]
-                sent = ", ".join(note_error)
-                raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
-            
-            if len(args)>1 and not one:
-                args = list(args)
-                for i, a in enumerate(args[1:]):
-                    kwargs[ak[i+1]] = a
-                    del args[1]
-                    
-                args = tuple(args)
-            
-            if obj:
-                note_error = []
-                for k, v in kwargs.items():
-                    if v == inspect._empty:
-                        note_error.append(k)
-                
-                if note_error:
-                    sent = ", ".join(note_error)
-                    raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
-                
-                for k, v in kwargs.items():
-                        setattr(obj, k, v)
-            
+		# kwargs empty
+		kk = kwargs.keys()
 
-        output = func(*args, **kwargs)
-        return output
+		note_error = []
+		for i, k in enumerate(ak[1:]):
+			if k not in kk and k not in noteak:
+				if adjust is False:
+					kwargs[k] = av[i+1].default
 
-    return call(func, adjust, args, kwargs, default_value=_SELFIT_DEFAULT, self=True)
+				elif self is True:
+					if k not in obj.__dict__.keys():
+						if default_value is not _SELFIT_DEFAULT:
+							kwargs[k] = default_value
+						else:
+							note_error.append(k)
+					else:
+						kwargs[k] = obj.__dict__[k]
+
+				elif self is False:
+					if default_value is not _SELFIT_DEFAULT:
+						kwargs[k] = default_value
+					else:
+						note_error.append(k)
+
+		if note_error:
+			g = len(args) - len(ak)
+			note_error = note_error[:]
+			sent = ", ".join(note_error)
+			raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
+
+		if len(args)>1 and not one:
+			args = list(args)
+			for i, a in enumerate(args[1:]):
+				kwargs[ak[i+1]] = a
+				del args[1]
+
+			args = tuple(args)
+
+		if obj:
+			note_error = []
+			for k, v in kwargs.items():
+				if v == inspect._empty:
+					note_error.append(k)
+
+			if note_error:
+				sent = ", ".join(note_error)
+				raise Exception(f"{func.__name__} missing {len(note_error)} required positional arguments: {sent}")
+
+			for k, v in kwargs.items():
+					setattr(obj, k, v)
+
+
+	output = func(*args, **kwargs)
+	return output
+
 
 
 # selfit: function helper function
