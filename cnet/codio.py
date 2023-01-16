@@ -334,12 +334,27 @@ def cfpname(func):
     	index = None
     
     if index is not None:
-    	return str_list[index-1]
+        v = str_list[index-1]
+        while '<' in v:
+            v1 = v.split('<')[0]
+            v2 = v.split('>')[-1]
+            v= v1 + v2[1:]
+        return v
+
     else:
-    	get = str_list[1].split("'")[1]
-    	if get.startswith('__main__.'):
-    		get = get[9:]
-    	return get
+        print('2')
+        get = str_list[1].split("'")[1]
+        if get.startswith('__main__.'):
+            get = get[9:]
+
+        while '<' in get:
+            get1 = get.split('<')[0]
+            get2 = get.split('>')[-1]
+            get = get1 + get2[1:]
+
+        return get
+
+ 
     	
 
 def typesof(obj):
