@@ -349,6 +349,61 @@ class TextFe(Fmf):
         # set default content
         self.default_content = ''
 
+class JsonFe(Fmf):
+    '''
+    JsonFe: Json File manager expert
+    '''
+    __modes = ['t', 'b']
+    
+    def __init__(self, filepath: str, mode:str= 't')->None:
+        # Parameter ValueError Check
+        assert isinstance(filepath, str), f"file path {filepath} must be str"
+        assert mode in self.__modes, f"mode must be one of {self.__modes}"
+        
+        #: param: filepath: str: file path or location
+        #: param: mode: str: file mode -text or binary
+        
+        # inherite parent class: FileManagerFormat
+        super().__init__(filepath, mode)
+        
+        self.filepath = filepath
+        self.mode = mode
+        
+        # set default content
+        self.default_content = '{}'
+    
+    # ------------------------------------------
+    # --- This layer should change -------------
+    # manage and access file content
+    def read(self, s, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
+        '''read content from the file'''
+        file = open(self.filepath, self.modop('r'))
+        red = json.loads(file.read(), s, cls=cls, object_hook=object_hook, parse_float=parse_float, parse_int=parse_int, parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)  # parameters changable
+        file.close()
+        return red
+    
+    def write(self, content, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw):
+        '''write content to the file: even overwrite'''
+        assert isinstance(content, dict), f"write content should be dict type."
+        file = open(self.filepath, self.modop('w'))
+        json_string = json.dumps(content, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)  # parameters changable
+        file.write(json_string)
+        file.close()
+        
+    def append(self, content, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw):  # parameters changable
+        '''append or update content to the file'''
+        read = self.read()
+        read.update(content)
+        self.write(read)
+        
+    def create(self, content, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw):  # parameters changable
+        '''create file and write content to the file: if file not exists'''
+        assert isinstance(content, dict), f"write content should be dict type."
+        file = open(self.filepath, self.modop('a'))
+        json_string = json.dumps(content, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)
+        file.write(json_string)
+        file.close()
+	
 
 def FileManager(filepath: str, filetype:str= None, mode:str= 't', format=False):
     
