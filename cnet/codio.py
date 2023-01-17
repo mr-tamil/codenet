@@ -425,11 +425,11 @@ class display:
     _display = False
     
     @_display_decorator
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *objs, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # arguments changable: based on IPython.display.display
         if self._display is False:
             from IPython.display import display as _display
             self._display = _display
-        self._display(*args, **kwargs)
+        self._display(*objs, include=include, exclude=exclude, metadata=metadata, transient=transient, display_id=display_id, **kwargs)
         
     # disable print output
     def disable():
