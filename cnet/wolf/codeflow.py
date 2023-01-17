@@ -16,13 +16,15 @@ class CodeFlow:
     
     Example:
     --------
-    from wolf import CodeFlow, display
+    from cnet.wolf import CodeFlow, display
 
     # initialize
-    cf = CodeFLow(globals())
+    cf = CodeFlow(globals())
 
     # access variables
-    get = cf()[0]
+    # get = cf()
+    get = globals()['var']
+
 
     # show table and columns in beautify
     display(cf())
