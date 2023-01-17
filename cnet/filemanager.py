@@ -353,7 +353,7 @@ class TextFe(Fmf):
 def FileManager(filepath: str, filetype:str= None, mode:str= 't', format=False):
     
     __modes = ['t', 'b']
-    __filetypes = ['txt']
+    __filetypes = ['txt', 'json']
 
     # Parameter ValueError Check-- Part-1
     assert isinstance(filepath, str), f"file path {filepath} must be str"
@@ -380,12 +380,14 @@ def FileManager(filepath: str, filetype:str= None, mode:str= 't', format=False):
     # call specified File manager expert
     if filetype == 'txt':
     	return TextFe(filepath, mode)
+    elif filetype == 'json':
+    	return JsonFe(filepath, mode)
     
 
 if __name__ =="__main__":
     # File Manager
     fm = FileManager(
-                filepath= "__file__",
+                filepath= __file__,
                 filetype='txt',
                 format=True,
                 mode='t')
