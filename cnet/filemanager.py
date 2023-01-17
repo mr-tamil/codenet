@@ -385,7 +385,7 @@ def FileManager(filepath: str, filetype:str= None, mode:str= 't', format=False):
 if __name__ =="__main__":
     # File Manager
     fm = FileManager(
-                filepath='__file__',
+                filepath= "__file__",
                 filetype='txt',
                 format=True,
                 mode='t')
