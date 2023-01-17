@@ -320,7 +320,6 @@ class Fmf:
     # addition easy do feautures
     # todo: add more features later if required
     
-    @property
     def string(self, n:int=-1):
         '''show original content of the file in string'''
         file = open(self.filepath, self.modop('r'))
