@@ -356,6 +356,7 @@ class TextFe(Fmf):
         # set default content
         self.default_content = ''
 
+
 class JsonFe(Fmf):
     '''
     JsonFe: Json File manager expert
@@ -420,9 +421,13 @@ class JsonFe(Fmf):
         read = self.read()
         read[key] = value
         self.write(read)
-
-
 	
+    def __delitem__(self, key):
+        '''delete content from the file: Note: only one iterable key'''
+        read = self.read()
+        del read[key]
+        self.write(read)
+
 
 def FileManager(filepath: str, filetype:str= None, mode:str= 't', formated=True):
     
