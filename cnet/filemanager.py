@@ -400,9 +400,12 @@ class JsonFe(Fmf):
         
     def append(self, content, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw):  # parameters changable
         '''append or update content to the file'''
-        read = self.read()
-        read.update(content)
-        self.write(read)
+        try:
+	        read = self.read()
+            read.update(content)
+            self.write(read)
+        except FileNotFoundError:
+			self.write(
         
     def create(self, content, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw):  # parameters changable
         '''create file and write content to the file: if file not exists'''
