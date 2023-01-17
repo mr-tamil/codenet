@@ -375,10 +375,10 @@ class JsonFe(Fmf):
     # ------------------------------------------
     # --- This layer should change -------------
     # manage and access file content
-    def read(self, s, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
+    def read(self, *, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
         '''read content from the file'''
         file = open(self.filepath, self.modop('r'))
-        red = json.loads(file.read(), s, cls=cls, object_hook=object_hook, parse_float=parse_float, parse_int=parse_int, parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)  # parameters changable
+        red = json.loads(file.read(), cls=cls, object_hook=object_hook, parse_float=parse_float, parse_int=parse_int, parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)  # parameters changable
         file.close()
         return red
     
