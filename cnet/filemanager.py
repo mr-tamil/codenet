@@ -405,7 +405,7 @@ class JsonFe(Fmf):
         file.close()
 	
 
-def FileManager(filepath: str, filetype:str= None, mode:str= 't', format=False):
+def FileManager(filepath: str, filetype:str= None, mode:str= 't', formated=True):
     
     __modes = ['t', 'b']
     __filetypes = ['txt', 'json']
@@ -414,17 +414,17 @@ def FileManager(filepath: str, filetype:str= None, mode:str= 't', format=False):
     assert isinstance(filepath, str), f"file path {filepath} must be str"
     assert filetype in __filetypes or filetype is None, f"filetype {filetype} must be one of {__filetypes} or None"
     assert mode in __modes, f"mode must be one of {__modes}"
-    assert isinstance(format, bool), f"format {format} must be bool"
+    assert isinstance(formated, bool), f"formated {formated} must be bool"
         
     #: param: filepath: str: file path or location
     #: param: filetype: str: file type = __filetypes or None
     #: param: mode: str: file mode -text or binary
-    #: param: format: bool: format counts exact file format and filetype
+    #: param: formated: bool: mentioning whether the file is not formated correct filetype or not, used to open if not supported.
     
     # set file type if required
     if filetype is None:
         filetype = Fmf(filepath).type
-        if not format:
+        if not formated:
             if filetype == '' or filetype not in __filetypes:
             	filetype = 'txt'
             
