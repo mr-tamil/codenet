@@ -320,9 +320,16 @@ class Fmf:
     # addition easy do feautures
     # todo: add more features later if required
     
+    def string(self):
+        '''show original content of the file in string'''
+        file = open(self.filepath, self.modop('r'))
+        red = file.read()
+        file.close()
+        return red
+
     def __str__(self):
-    	'''show self.read content of the file'''
-    	return self.__class__.read(self)
+        '''show self.read() of the file in string'''
+        return str(self.read())
     
 
 
