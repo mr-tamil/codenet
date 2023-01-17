@@ -414,9 +414,12 @@ class prints:
     def enable():
         sys.stdout = sys.__stdout__
 
-def mkdirz(directory, lis):
+def mkdirz(directory, lis:[['folder', 'file']], osfilesplit=True):
+		
 	for f in lis:
+		if osfilesplit is True:
+			f = f[:-1]
 		path = directory
-		for d in f[:-1]:
+		for d in f:
 			path = os.path.join(path, d)
 			os.mkdir(path)
