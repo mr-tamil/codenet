@@ -380,20 +380,9 @@ def command_call(cmd: str):
 	subprocess.check_call(cmd.split())
 
 
-# print, enable, disable
-class prints:
-    """
-    prints.enable  # will print
-    prints.disable  # won't print
-    with prints(state=True):
-    	'''will print'''
-    	
-    with prints(state=False):
-    	'''will not print'''
-    """
-    # eable or disable print output on with statement    
-    def __init__(self, state:bool= True):
-        # :param: state: True or False
+# display helper function
+class _wprint:
+    def __init__(self, state:bool=True):
         self.state = state
     	
     def __enter__(self):
@@ -405,7 +394,43 @@ class prints:
         if not self.state:
             sys.stdout.close()
             sys.stdout = self.__stdout__
+
+# display helper function
+def _display_decorator(func):
     
+    @wraps(func)
+    def call(*args, save=None, **kwargs):
+        
+        return func(*args, **kwargs)
+        
+    return call
+
+# print, enable, disable
+class display:
+    """
+    display()  # same as IPython.display.display
+    display.enable()  # will print
+    display.disable()  # won't print
+    
+    with display.print(state=True):
+    	'''will print'''
+    	
+    with display.print(state=False):
+    	'''will not print'''
+    """
+    
+    # eable or disable print output on with statement
+    print = _wprint
+    
+    _display = False
+    
+    @_display_decorator
+    def __init__(self, *args, **kwargs):
+        if self._display is False:
+            from IPython.display import display as _display
+            self._display = _display
+        self._display(*args, **kwargs)
+        
     # disable print output
     def disable():
         sys.stdout = open(os.devnull, 'w')
@@ -413,6 +438,7 @@ class prints:
     # enable print output
     def enable():
         sys.stdout = sys.__stdout__
+        
 
 def mkdirz(directory, lis:[['folder', 'file']], osfilesplit=True):
 		
