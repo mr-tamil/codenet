@@ -4,7 +4,7 @@
 from . import codio
 
 # import libraries
-import os, shutil
+import os, shutil, json
 
 class Dencrypt():
 	"""
