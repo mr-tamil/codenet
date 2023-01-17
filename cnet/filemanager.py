@@ -322,7 +322,7 @@ class Fmf:
     
     def __str__(self):
     	'''show self.read content of the file'''
-    	return self.read()
+    	return self.__class__.read()
     
 
 
@@ -403,6 +403,18 @@ class JsonFe(Fmf):
         json_string = json.dumps(content, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)
         file.write(json_string)
         file.close()
+    
+    def __getitem__(self, key):
+        '''get content from the file'''
+        return self.read()[key]
+    
+    def __setitem__(self, key, value):
+        '''set content of the file: Note: only one iteration'''
+        read = self.read()
+        read[key] = value
+        self.write(read)
+
+
 	
 
 def FileManager(filepath: str, filetype:str= None, mode:str= 't', formated=True):
