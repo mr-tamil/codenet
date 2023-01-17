@@ -247,7 +247,7 @@ class Fmf:
         
     # ------------------------------------------
     
-	# file info
+    # file info
     def info(self):
         '''get the information of the file'''
         data = os.stat(self.filepath)
@@ -320,10 +320,11 @@ class Fmf:
     # addition easy do feautures
     # todo: add more features later if required
     
-    def string(self):
+    @property
+    def string(self, n:int=-1):
         '''show original content of the file in string'''
         file = open(self.filepath, self.modop('r'))
-        red = file.read()
+        red = file.read(n)
         file.close()
         return red
 
