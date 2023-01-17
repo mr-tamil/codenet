@@ -7,7 +7,7 @@ status: completed
 
 # import libraries
 import pandas as pd
-from IPython.display import display
+from cnet.codio import display
 
 
 class CodeFlow:
