@@ -322,7 +322,7 @@ class Fmf:
     
     def __str__(self):
     	'''show self.read content of the file'''
-    	return self.__class__.read()
+    	return self.__class__.read(self)
     
 
 
