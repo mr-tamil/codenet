@@ -402,12 +402,12 @@ class JsonFe(Fmf):
         '''append or update content to the file'''
         try:
 	        read = self.read()
-            read.update(content)
-            self.write(read, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)
+	        read.update(content)
+	        self.write(read, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)
         except FileNotFoundError:
-            self.write(content, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)
+	        self.write(content, skipkeys=skipkeys, ensure_ascii=ensure_ascii, check_circular=check_circular, allow_nan=allow_nan, cls=cls, indent=indent, separators=separators, default=default, sort_keys=sort_keys, **kw)
         except Exception as e:
-			raise Exception(e)
+	        raise Exception(e)
         
     def create(self, content, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw):  # parameters changable
         '''create file and write content to the file: if file not exists'''
