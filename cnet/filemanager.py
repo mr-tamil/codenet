@@ -304,7 +304,7 @@ class Fmf:
     @property
     def type(self):
         '''get the type of the file'''
-        type = os.path.splitext(self.filename)[1]
+        type = os.path.splitext(self.filename)[1].split('.')[-1]
         return type
     
     
