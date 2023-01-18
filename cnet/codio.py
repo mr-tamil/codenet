@@ -507,7 +507,7 @@ class __displaycls:
             if length > self.storagelength:
                 if self.storagelength != length:
                     file_data_new = {}
-                    for k in keys[11-10:]:
+                    for k in keys[length-self.storagelength:]:
                         file_data_new[k] = file_data[k]
                     file_data = file_data_new
                 else:
