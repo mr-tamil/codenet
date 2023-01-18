@@ -459,7 +459,9 @@ class __displaycls:
     """
 
     def __init__(self) -> None:
-        global  _wprin
+        global  _wprin, pd
+        if globals().get('pd') is None:
+            import pandas as pd
         # display function helper: only disable or enable the print function
         self.print = _wprint
 
@@ -558,10 +560,6 @@ class __displaycls:
         if dtformat is not None:
             for k in keys:
                 red[k]['time'] = datetime.datetime.fromtimestamp(int(red[k]['time'])).strftime(dtformat)
-        
-        if globals().get('pd') is None:
-            global pd
-            import pandas as pd
 
         pdf = pd.DataFrame(red.values(), index=keys)
         return pdf
