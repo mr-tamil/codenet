@@ -505,7 +505,7 @@ class __displaycls:
             length = len(file_data)
             keys = list(file_data.keys())
             if length > self.storagelength:
-                if 10 < 11:
+                if self.storagelength != length:
                     file_data_new = {}
                     for k in keys[11-10:]:
                         file_data_new[k] = file_data[k]
