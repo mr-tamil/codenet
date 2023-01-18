@@ -6,9 +6,9 @@ status: completed
 
 
 # import libraries
-import pandas as pd
 from cnet.codio import display
 
+# pandas will be imported, if need
 
 class CodeFlow:
     '''
@@ -45,6 +45,10 @@ class CodeFlow:
         self.neglect = neglect
         
         self.additional_backlogs_contents = ['In', 'Out', 'get_ipython', 'exit', 'quit', '__name__', '__file__', '__builtins__', '__warningregistry__']
+        
+        if globals().get('pd') is None:
+            import pandas as pd
+            globals()['pd'] = pd
         
         # set pandas display : IPython.display.display
         self.display = pd.options.display
