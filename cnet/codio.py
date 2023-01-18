@@ -535,7 +535,7 @@ class __displaycls:
     def change(self, storage, storagelength, runtime):
         '''change default values'''
     
-    def memory(self, dtformat:str=None):
+    def memories(self, dtformat:str=None):
         # :param :dtformat: date time string of view
 
         file = CnetConfiguration().getfile('display-storage.json')
