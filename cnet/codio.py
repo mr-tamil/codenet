@@ -504,9 +504,16 @@ class __displaycls:
 
             length = len(file_data)
             keys = list(file_data.keys())
-            if not length < self.storagelength:
-                key_d = keys[0]
-                del file_data[key_d]
+            if length > self.storagelength:
+                if 10 < 11:
+                    file_data_new = {}
+                    for k in keys[11-10:]:
+                        file_data_new[k] = file_data[k]
+                    file_data = file_data_new
+                else:
+                   key_d = keys[0]
+                   del file_data[key_d]
+						
 
             store_content = {
                     'runtime': time_end-time_start,
