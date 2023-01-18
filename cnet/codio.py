@@ -27,7 +27,8 @@ def install_packages(names:['packages'])->None:
 install_packages(['dill', 'pandas'])
 
 # import installable libraries
-import pandas as pd
+# --------
+
 
 # libraries easy access method:---
 
@@ -557,6 +558,10 @@ class __displaycls:
         if dtformat is not None:
             for k in keys:
                 red[k]['time'] = datetime.datetime.fromtimestamp(int(red[k]['time'])).strftime(dtformat)
+        
+        if globals().get('pd') is None:
+            import pandas as pd
+            globals()['pd'] = pd
 
         pdf = pd.DataFrame(red.values(), index=keys)
         return pdf
