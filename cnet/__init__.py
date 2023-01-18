@@ -10,10 +10,10 @@ from . import wolf
 
 
 # configuration file default data
-config_data = {
+__config_data = {
 }
 
 __ccfile = codio.CnetConfiguration()
-__ccfile.mainfile.append(config_data)
+__ccfile.mainfile.append(__config_data)
 
     
