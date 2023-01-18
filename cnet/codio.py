@@ -470,9 +470,9 @@ class __displaycls:
 
 
     def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
-        global _display
 
         if self.__dle is False:
+            global _display
             from IPython.display import display as _display
             self.__dle = True
         
