@@ -207,7 +207,7 @@ def get_class_family(ins, cwd_globals_= None):
 	return shortlist_class, places
 
 
-class Extract():
+class _Extract():
     def __init__(self):
     	pass
 		
@@ -547,7 +547,7 @@ class Extract():
     	return self.__get_ins_source(name)[1]
 
 
-class Neurons(Extract):
+class Neurons(_Extract):
     '''
         used
     '''
