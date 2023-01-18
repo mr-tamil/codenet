@@ -552,6 +552,9 @@ class Neurons(Extract):
         used
     '''
     def __init__(self, globals_)-> None:
+        if globals().get('np') is None:
+            global np
+            import numpy as np
         self.neurons = None
         self.model = None
         self.cwd_globals = globals_
