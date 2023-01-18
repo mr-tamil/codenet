@@ -1,9 +1,15 @@
 """codio: Code Toolkit for I/O"""
 
 # import libraries assist
-import os, sys, subprocess, importlib, io, imp, types, time, inspect, json
+import os, sys, subprocess, importlib, io, imp, types, time, inspect, json, datetime
 from collections import namedtuple
 from functools import wraps
+from json import JSONDecodeError
+
+# import package modules
+from cnet.decorators import selfit
+from cnet import CnetConfiguration
+
 
 
 # install single package
@@ -382,6 +388,7 @@ def command_call(cmd: str):
 
 # display helper function
 class _wprint:
+    # enable or disable print output using with-statement
     def __init__(self, state:bool=True):
         self.state = state
     	
@@ -395,42 +402,6 @@ class _wprint:
             sys.stdout.close()
             sys.stdout = self.__stdout__
 
-# display helper function
-def _display_decorator(func):
-    
-    @wraps(func)
-    def call(*args, save=None, **kwargs):
-        
-        return func(*args, **kwargs)
-        
-    return call
-
-# print, enable, disable
-class display:
-    """
-    display()  # same as IPython.display.display
-    display.enable()  # will print
-    display.disable()  # won't print
-    
-    with display.print(state=True):
-    	'''will print'''
-    	
-    with display.print(state=False):
-    	'''will not print'''
-    """
-    
-    # eable or disable print output on with statement
-    print = _wprint
-    
-    _display = False
-    
-    @_display_decorator
-    def __init__(self, *objs, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable
-        if self._display is False:
-            from IPython.display import display as _display
-            self._display = _display
-        self._display(*objs, include=include, exclude=exclude, metadata=metadata, transient=transient, display_id=display_id, **kwargs)
-        
     # disable print output
     def disable():
         sys.stdout = open(os.devnull, 'w')
@@ -438,6 +409,129 @@ class display:
     # enable print output
     def enable():
         sys.stdout = sys.__stdout__
+
+
+# display class helper
+class __displaycls:
+    """Usage:
+    display.storage = True
+    display.storagelength = 2
+    display.change(runtime=True)
+    display(display.memory('%M %Y %D'))
+
+    display()  # same as IPython.display.display
+    display.enable()  # will print
+    display.disable()  # won't print
+    
+    with display.print(state=True):
+        '''will print'''
+        
+    with display.print(state=False):
+        '''will not print'''
+    
+    Note:
+    if disabled in Hupiter NoteBook, need to restart runtime to print normally else won't print after enabled or not
+    """
+
+    def __init__(self) -> None:
+        global  _wprin
+        # display function helper: only disable or enable the print function
+        self.print = _wprint
+
+        self.__dle = False  # display_library_enabled
+        self.stdout_disable_key = open(os.devnull, 'w')
+
+        # set default
+        self.storage = False
+        self.storagelength = 10
+        self.runtime = False
+
+
+    def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
+        global _display
+
+        if self.__dle is False:
+            from IPython.display import display as _display
+            self.__dle = True
+        
+
+        # run display here
+        time_start = time.time()
+        output = _display(*objs, include=include, exclude=exclude, metadata=metadata, transient=transient, display_id=display_id, **kwargs)
+        time_end = time.time()
+
+        runtime = time_start-time_end
+
+        if self.runtime is True:
+            runtime_statement = f"runtime: {runtime} seconds"
+            if sys.stdout is self.stdout_disable_key:
+                _display(runtime_statement)
+            else:
+                print("\n" + runtime_statement)
+
+
+        if self.storage is True:
+            file = CnetConfiguration().getfile('display-storage.json')
+            try:
+                file_data = file.read()
+            except JSONDecodeError:
+                file.clear()
+                file_data = file.read()
+
+            length = len(file_data)
+            keys = list(file_data.keys())
+            if not length < self.storagelength:
+                key_d = keys[0]
+                del file_data[key_d]
+
+            store_content = {
+                    'runtime': time_end-time_start,
+                    'time': time_start,
+                    'name': name,
+                    'value': objs,
+            }
+            try:
+                n = int(keys[-1])+1
+                file_data[n] = store_content
+            except:
+                n = 0
+                file_data[n] = store_content
+            
+            try:
+                file.write(file_data, indent=4)
+            except:
+                store_content['value'] = str(objs)
+                file_data[n] = store_content
+                file.write(file_data, indent=4)
+
+
+        return output
+    
+    @selfit.adjust()
+    def change(self, storage, storagelength, runtime):
+        '''change default values'''
+    
+    def memory(self, dtformat:str=None):
+        # :param :dtformat: date time string of view
+
+        file = CnetConfiguration().getfile('display-storage.json')
+        try:
+            red = file.read()
+        except JSONDecodeError:
+            file.clear()
+            red = file.read()
+
+
+        keys = red.keys()
+        if dtformat is not None:
+            for k in keys:
+                red[k]['time'] = datetime.datetime.fromtimestamp(int(red[k]['time'])).strftime(dtformat)
+
+        pdf = pd.DataFrame(red.values(), index=keys)
+        return pdf
+
+# display as alternative to print and IPython.display.display
+display = __displaycls()
         
 
 def mkdirz(directory, lis:[['folder', 'file']], osfilesplit=True):
