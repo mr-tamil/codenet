@@ -464,12 +464,10 @@ class __displaycls:
         self.print = _wprint
 
         self.__dle = False  # display_library_enabled
-        self.stdout_disable_key = open(os.devnull, 'w')
 
         # set default
         self.storage = False
         self.storagelength = 10
-        self.runtime = False
 
 
     def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
@@ -483,17 +481,6 @@ class __displaycls:
         # run display here
         time_start = time.time()
         output = _display(*objs, include=include, exclude=exclude, metadata=metadata, transient=transient, display_id=display_id, **kwargs)
-        time_end = time.time()
-
-        runtime = time_start-time_end
-
-        if self.runtime is True:
-            runtime_statement = f"runtime: {runtime} seconds"
-            if sys.stdout is self.stdout_disable_key:
-                _display(runtime_statement)
-            else:
-                print("\n" + runtime_statement)
-
 
         if self.storage is True:
             file = CnetConfiguration().getfile('display-storage.json')
@@ -517,7 +504,6 @@ class __displaycls:
 						
 
             store_content = {
-                    'runtime': time_end-time_start,
                     'time': time_start,
                     'name': name,
                     'value': objs,
@@ -540,7 +526,7 @@ class __displaycls:
         return output
     
     @selfit.adjust()
-    def change(self, storage, storagelength, runtime):
+    def change(self, storage, storagelength):
         '''change default values'''
     
     def memories(self, dtformat:str=None):
