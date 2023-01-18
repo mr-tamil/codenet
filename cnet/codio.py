@@ -560,8 +560,8 @@ class __displaycls:
                 red[k]['time'] = datetime.datetime.fromtimestamp(int(red[k]['time'])).strftime(dtformat)
         
         if globals().get('pd') is None:
+            global pd
             import pandas as pd
-            globals()['pd'] = pd
 
         pdf = pd.DataFrame(red.values(), index=keys)
         return pdf
