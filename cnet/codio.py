@@ -441,7 +441,6 @@ class __displaycls:
     """Usage:
     display.storage = True
     display.storagelength = 2
-    display.change(runtime=True)
     display(display.memory('%M %Y %D'))
 
     display()  # same as IPython.display.display
