@@ -47,8 +47,8 @@ class CodeFlow:
         self.additional_backlogs_contents = ['In', 'Out', 'get_ipython', 'exit', 'quit', '__name__', '__file__', '__builtins__', '__warningregistry__']
         
         if globals().get('pd') is None:
+            global pd
             import pandas as pd
-            globals()['pd'] = pd
         
         # set pandas display : IPython.display.display
         self.display = pd.options.display
