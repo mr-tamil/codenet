@@ -5,6 +5,7 @@ import os, sys, subprocess, importlib, io, imp, types, time, inspect, json, date
 from collections import namedtuple
 from functools import wraps
 from json import JSONDecodeError
+from . import filemanager
 
 # import package modules
 from cnet.decorators import selfit
