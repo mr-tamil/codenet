@@ -459,9 +459,7 @@ class __displaycls:
     """
 
     def __init__(self) -> None:
-        global  _wprin, pd
-        if globals().get('pd') is None:
-            import pandas as pd
+        global  _wprint
         # display function helper: only disable or enable the print function
         self.print = _wprint
 
@@ -547,7 +545,10 @@ class __displaycls:
     
     def memories(self, dtformat:str=None):
         # :param :dtformat: date time string of view
-
+	global pd
+        if globals().get('pd') is None:
+            import pandas as pd
+        
         file = CnetConfiguration().getfile('display-storage.json')
         try:
             red = file.read()
