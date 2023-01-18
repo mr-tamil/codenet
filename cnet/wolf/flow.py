@@ -1,10 +1,12 @@
-import numpy as np
 from cnet import codio
 import inspect
-
+# numpy as np will be imported, if need
 
 class Flow():
-    def __init__(self, neuron):        
+    def __init__(self, neuron):
+        if globals().get('np') is None:
+            global np
+            import numpy as np
         self.Neurons = neuron
         self.methods_to_add = ['getsource', 'getins', 'get_classes', 'get_functions', 'show', 'show_functions', 'show_classes', 'get_list', "add", "__add__", "remove"]
         for n, m in inspect.getmembers(self.Neurons):
