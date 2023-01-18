@@ -7,7 +7,7 @@ import dill
 import importlib as implib
 from warnings import filterwarnings
 import json
-import pandas as pd
+
 
 project_work_flow_folder = "" # "ProjectWorkFlow"
 
@@ -695,6 +695,9 @@ class Neurons(Extract):
 
     def display(self):
         '''"Name", "Type", "Original_Name", "Object"'''
+        if globals().get('pd') is None:
+            import pandas as pd
+            globals()['pd'] = pd
         try:
             # pandas dataframe
             new = self.neurons[:, 0:4].copy()
