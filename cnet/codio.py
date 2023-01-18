@@ -62,7 +62,7 @@ class CnetConfiguration:
     def getfile(self, filename):
         get_file_path = os.path.join(self.parent_folder_path, filename)
         if not os.path.exists(get_file_path):
-            file = FileManager(get_file_path)
+            file = filemanager.FileManager(get_file_path)
             file.clear()
             return file
         else:
