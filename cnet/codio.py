@@ -5,10 +5,10 @@ import os, sys, subprocess, importlib, io, imp, types, time, inspect, json, date
 from collections import namedtuple
 from functools import wraps
 from json import JSONDecodeError
-from . import filemanager
 
 # import package modules
 from cnet.decorators import selfit
+from . import filemanager
 
 
 # install single package
@@ -24,8 +24,10 @@ def install_packages(names:['packages'])->None:
 
 
 # install libraries
-install_packages(['dill'])
+install_packages(['dill', 'pandas'])
 
+# import installable libraries
+import pandas as pd
 
 # libraries easy access method:---
 
