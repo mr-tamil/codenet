@@ -1,4 +1,3 @@
-import numpy as np
 import inspect
 import imp
 import os
@@ -7,7 +6,8 @@ import dill
 import importlib as implib
 from warnings import filterwarnings
 import json
-# pandas will be imported, if need
+# pandas as pd will be imported, if need
+# numpy as np will be imported, if need
 
 
 project_work_flow_folder = "" # "ProjectWorkFlow"
