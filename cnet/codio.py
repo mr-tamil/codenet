@@ -504,7 +504,7 @@ class __displaycls:
 
             length = len(file_data)
             keys = list(file_data.keys())
-            if length > self.storagelength:
+            if not length < self.storagelength:
                 if self.storagelength != length:
                     file_data_new = {}
                     for k in keys[abs(length-self.storagelength):]:
