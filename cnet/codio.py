@@ -545,7 +545,7 @@ class __displaycls:
     
     def memories(self, dtformat:str=None):
         # :param :dtformat: date time string of view
-	global pd
+        global pd
         if globals().get('pd') is None:
             import pandas as pd
         
