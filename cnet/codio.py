@@ -27,7 +27,7 @@ def install_packages(names:['packages'])->None:
 install_packages(['dill', 'pandas'])
 
 # import installable libraries
-# --------
+# pandas will be imported, if need
 
 
 # libraries easy access method:---
