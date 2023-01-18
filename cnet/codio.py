@@ -8,8 +8,6 @@ from json import JSONDecodeError
 
 # import package modules
 from cnet.decorators import selfit
-from cnet import CnetConfiguration
-
 
 
 # install single package
@@ -45,6 +43,29 @@ from inspect import getmembers
 # filter warnings
 from warnings import filterwarnings
 # --------------------------------
+
+# cnet configuration data folder handler
+class CnetConfiguration:
+    def __init__(self, parentfoldername='.cnet', mainfilename='config.json'):
+        self.parent_folder_name = parentfoldername
+        self.parent_folder_path = os.path.join(os.getcwd(), self.parent_folder_name)
+        if not os.path.exists(self.parent_folder_path):
+            os.mkdir(self.parent_folder_path)
+        
+        self.config_file_name = mainfilename
+    
+    @property
+    def mainfile(self):
+        return self.getfile(self.config_file_name)
+
+    def getfile(self, filename):
+        get_file_path = os.path.join(self.parent_folder_path, filename)
+        if not os.path.exists(get_file_path):
+            file = FileManager(get_file_path)
+            file.clear()
+            return file
+        else:
+            return filemanager.FileManager(get_file_path)
 
 
 # jprint: json print
