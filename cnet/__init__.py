@@ -39,10 +39,6 @@ class CnetConfiguration:
 
 
 __ccfile = CnetConfiguration()
+__ccfile.mainfile.append(config_data)
 
-try:
-    __ccfile.mainfile.append(config_data)
-except FileNotFoundError:
-    __ccfile.mainfile.clear()
-    __ccfile.mainfile.append(config_data)
     
