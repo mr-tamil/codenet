@@ -13,7 +13,6 @@ cnet:
     - codio
     - decorators
     - filemanager
-    - config
 ```
 
 **CodeNet** is a very powerful package for everything that needed in project.
