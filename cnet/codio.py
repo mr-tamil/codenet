@@ -510,7 +510,7 @@ class __displaycls:
         self.__store = value
         read_display = cnetconfig.mainfile['display']
         read_display['store'] = value
-        cnetconfig['display'] = read_display
+        cnetconfig.mainfile['display'] = read_display
     
     @property
     def storelength(self):
@@ -522,7 +522,7 @@ class __displaycls:
         self.__storelength = value
         read_display = cnetconfig.mainfile['display']
         read_display['storelength'] = value
-        cnetconfig['display'] = read_display
+        cnetconfig.mainfile['display'] = read_display
         
     def change(self, store:bool=None, storelength:int=None):
         '''change default values'''
