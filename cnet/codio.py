@@ -447,7 +447,7 @@ class __displaycls:
         except KeyError:
             self.__store = cnet_basic_config_data['display']['store']
             self.__storelength = cnet_basic_config_data['display']['storelength']
-            cnetconfig.mainfile['display'] = cnet_basic_config_data['display']
+            cnetconfig.mainfile.append({'display': cnet_basic_config_data['display']}, indent=4)
 
 
     def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
