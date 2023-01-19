@@ -7,7 +7,7 @@ from functools import wraps
 from json import JSONDecodeError
 
 # import package modules
-from cnet.config import cnetconfig, basic_config_data
+from cnet.config import cnetconfig, cnet_basic_config_data
 
 
 # install single package
@@ -445,9 +445,9 @@ class __displaycls:
             self.__store = cnetconfig.mainfile['display']['store']
             self.__storelength = cnetconfig.mainfile['display']['storelength']
         except KeyError:
-            self.__store = basic_config_data['display']['store']
-            self.__storelength = basic_config_data['display']['storelength']
-            cnetconfig.mainfile['display'] = basic_config_data['display']
+            self.__store = cnet_basic_config_data['display']['store']
+            self.__storelength = cnet_basic_config_data['display']['storelength']
+            cnetconfig.mainfile['display'] = cnet_basic_config_data['display']
 
 
     def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
