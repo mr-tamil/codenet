@@ -458,7 +458,7 @@ class __displaycls:
         output = _display(*objs, include=include, exclude=exclude, metadata=metadata, transient=transient, display_id=display_id, **kwargs)
 
         if self.__store is True:
-            file = CnetConfiguration().getfile('display-storage.json')
+            file = cnetconfig.getfile('display-storage.json')
             try:
                 file_data = file.read()
             except JSONDecodeError:
