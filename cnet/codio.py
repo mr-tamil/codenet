@@ -7,8 +7,7 @@ from functools import wraps
 from json import JSONDecodeError
 
 # import package modules
-from cnet.decorators import selfit
-
+from cnet.config import cnetconfig
 
 
 # install single package
@@ -416,8 +415,8 @@ class _wprint:
 # display class helper
 class __displaycls:
     """Usage:
-    display.storage = True
-    display.storagelength = 2
+    display.store = True
+    display.storelength = 2
     display(display.memory('%M %Y %D'))
 
     display()  # same as IPython.display.display
@@ -442,8 +441,8 @@ class __displaycls:
         self.__dle = False  # display_library_enabled
 
         # set default
-        self.storage = False
-        self.storagelength = 10
+        self.__store = cnetconfig['display']['store']
+        self.__storelength = cnetconfig['display']['storelength']
 
 
     def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
@@ -458,7 +457,7 @@ class __displaycls:
         time_start = time.time()
         output = _display(*objs, include=include, exclude=exclude, metadata=metadata, transient=transient, display_id=display_id, **kwargs)
 
-        if self.storage is True:
+        if self.__store is True:
             file = CnetConfiguration().getfile('display-storage.json')
             try:
                 file_data = file.read()
@@ -468,10 +467,10 @@ class __displaycls:
 
             length = len(file_data)
             keys = list(file_data.keys())
-            if not length < self.storagelength:
-                if self.storagelength != length:
+            if not length < self.__storelength:
+                if self.__storelength != length:
                     file_data_new = {}
-                    for k in keys[length-self.storagelength+1:]:
+                    for k in keys[length-self.__storelength+1:]:
                         file_data_new[k] = file_data[k]
                     file_data = file_data_new
                 else:
@@ -479,7 +478,7 @@ class __displaycls:
                     del file_data[key_d]
 						
 
-            store_content = {
+            __store_content = {
                     'time': time_start,
                     'name': name,
                     'value': objs,
@@ -501,9 +500,36 @@ class __displaycls:
 
         return output
     
-    @selfit.adjust()
-    def change(self, storage, storagelength):
+    @property
+    def store(self):
+        return self.__store
+
+    @store.setter
+    def store(self, value:bool):
+        assert isinstance(value, bool), f"value {value} must be True or False"
+        self.__store = value
+        read_display = cnetconfig.read()['display']
+        read_display['store'] = value
+        cnetconfig['display'] = read_display
+    
+    @property
+    def storelength(self):
+        return self.__storelength
+        
+    @storelength.setter
+    def storelength(self, value:bool):
+        assert isinstance(value, bool), f"value {value} must be True or False"
+        self.__storelength = value
+        read_display = cnetconfig.read()['display']
+        read_display['storelength'] = value
+        cnetconfig['display'] = read_display
+        
+    def change(self, store:bool=None, storelength:int=None):
         '''change default values'''
+        if store is not None:
+            self.store = store
+        if store is not None:
+            self.storelength = storelength
     
     def memories(self, dtformat:str=None):
         # :param :dtformat: date time string of view
