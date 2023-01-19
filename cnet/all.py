@@ -4,7 +4,6 @@ from cnet import *
 from cnet.filemanager import *
 from cnet.codio import *
 from cnet.decorators import *
-from cnet.config import *
 
 # wolf
 from cnet.wolf import *
