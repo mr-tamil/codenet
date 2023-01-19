@@ -441,8 +441,8 @@ class __displaycls:
         self.__dle = False  # display_library_enabled
 
         # set default
-        self.__store = cnetconfig['display']['store']
-        self.__storelength = cnetconfig['display']['storelength']
+        self.__store = cnetconfig.read()['display']['store']
+        self.__storelength = cnetconfig.read()['display']['storelength']
 
 
     def __call__(self, *objs, name=None, include=None, exclude=None, metadata=None, transient=None, display_id=None, **kwargs):  # parameters changable:
