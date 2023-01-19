@@ -38,7 +38,7 @@ __config_data = {
 cnetconfig = BasicConfiguration('.cnet', 'config.json')
 
 def reset():
-    cnetconfig.mainfile.write(__config_data)
+    cnetconfig.mainfile.write(__config_data, indent=4)
 
 if not os.path.exists(os.path.join(cnetconfig.parent_folder_path, 'config.json')):
     reset()
