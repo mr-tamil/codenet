@@ -478,7 +478,7 @@ class __displaycls:
                     del file_data[key_d]
 						
 
-            __store_content = {
+            store_content = {
                     'time': time_start,
                     'name': name,
                     'value': objs,
