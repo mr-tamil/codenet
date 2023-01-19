@@ -537,7 +537,7 @@ class __displaycls:
             global pd
             import pandas as pd
         
-        file = CnetConfiguration().getfile('display-storage.json')
+        file = cnetconfig.getfile('display-storage.json')
         try:
             red = file.read()
         except JSONDecodeError:
