@@ -517,8 +517,8 @@ class __displaycls:
         return self.__storelength
         
     @storelength.setter
-    def storelength(self, value:bool):
-        assert isinstance(value, bool), f"value {value} must be True or False"
+    def storelength(self, value:int):
+        assert isinstance(value, int), f"value {value} must be int type"
         self.__storelength = value
         read_display = cnetconfig.read()['display']
         read_display['storelength'] = value
