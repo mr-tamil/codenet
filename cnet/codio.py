@@ -508,9 +508,9 @@ class __displaycls:
     def store(self, value:bool):
         assert isinstance(value, bool), f"value {value} must be True or False"
         self.__store = value
-        read_display = cnetconfig.mainfile['display']
-        read_display['store'] = value
-        cnetconfig.mainfile['display'] = read_display
+        read_display = cnetconfig.mainfile.read()
+        read_display['display']['store'] = value
+        cnetconfig.mainfile.write(read_display, indent=4)
     
     @property
     def storelength(self):
@@ -520,9 +520,9 @@ class __displaycls:
     def storelength(self, value:int):
         assert isinstance(value, int), f"value {value} must be int type"
         self.__storelength = value
-        read_display = cnetconfig.mainfile['display']
-        read_display['storelength'] = value
-        cnetconfig.mainfile['display'] = read_display
+        read_display = cnetconfig.mainfile.read()
+        read_display['display']['storelength'] = value
+        cnetconfig.mainfile.write(read_display, indent=4)
         
     def change(self, store:bool=None, storelength:int=None):
         '''change default values'''
