@@ -13,7 +13,8 @@ from cnet.config import cnetconfig, cnet_basic_config_data
 # install single package
 def install_package(name)->None:
     if importlib.util.find_spec(name) is None:
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', name])
+#         subprocess.check_call([sys.executable, '-m', 'pip', 'install', name])
+        os.system(f"pip install {name}")
 
 
 # install list of packages
