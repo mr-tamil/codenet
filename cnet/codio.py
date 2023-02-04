@@ -1,7 +1,7 @@
 """codio: Code Toolkit for I/O"""
 
 # import libraries assist
-import os, sys, subprocess, importlib, io, imp, types, time, inspect, json, datetime, pip
+import os, sys, subprocess, importlib, io, imp, types, time, inspect, json, datetime
 from collections import namedtuple
 from functools import wraps
 from json import JSONDecodeError
@@ -13,9 +13,12 @@ from cnet.config import cnetconfig, cnet_basic_config_data
 # install single package
 def install_package(name)->None:
     if importlib.util.find_spec(name) is None:
-        # subprocess.check_call([sys.executable, '-m', 'pip', 'install', name])
-        pip.main(['install', name])
-        # os.system(f"pip install {name}")
+        try:
+            import pip 
+            pip.main(['install', name])
+        except:
+            # subprocess.check_call([sys.executable, '-m', 'pip', 'install', name])
+            os.system(f"python -m pip install {name}")
 
 
 # install list of packages
