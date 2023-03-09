@@ -309,12 +309,16 @@ def create_modula(script:str, name:str=None, delete=True):
     module_path = name
     with open(module_path, "w") as file:
         file.write(script)
-
-    with io.open(module_path) as scriptfile:
-        code = compile(scriptfile.read(),module_path,'exec')
-        module = imp.new_module(name)
-        exec(code, module.__dict__)
-
+    try:
+        with io.open(module_path) as scriptfile:
+            code = compile(scriptfile.read(),module_path,'exec')
+            module = imp.new_module(name)
+            exec(code, module.__dict__)
+            
+    except Exception as e:
+        module = None
+        print(e)
+        
     if delete is True:
         os.remove(module_path)
 
